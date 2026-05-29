@@ -257,6 +257,11 @@ button {
 }
 
 /* Hero */
+.cc-landing-root {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
 .cc-hero {
   min-height: calc(100vh - 76px);
   display: grid;

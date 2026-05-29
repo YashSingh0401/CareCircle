@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { Users, ArrowRight, BellRing, ClipboardList } from "lucide-react";
 import { MotionPage, MotionStagger, MotionStaggerItem } from "@/components/motion/carecircle-motion";
+import { StaffAuthForm } from "@/components/portal/StaffAuthForm";
 
 export default function HospitalStaffPortalPage() {
   return (
@@ -47,9 +48,9 @@ export default function HospitalStaffPortalPage() {
                   <li><Users size={16} /> Team coordination</li>
                 </ul>
 
-                <Link href="/dashboard/admin" className="cc-portal-link-btn cc-portal-link-btn--purple">
-                  Enter Portal <ArrowRight size={18} />
-                </Link>
+                <div className="mt-6">
+                  <StaffAuthForm />
+                </div>
               </div>
             </MotionStaggerItem>
           </div>

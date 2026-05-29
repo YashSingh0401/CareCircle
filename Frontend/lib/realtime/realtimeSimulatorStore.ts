@@ -1,5 +1,14 @@
 "use client";
 
+export type MedicalReport = {
+  id: string;
+  patientId: string;
+  reportName: string;
+  uploadedAt: string;
+  proof: string;
+  findings?: string;
+};
+
 import { create } from "zustand";
 import type { LucideIcon } from "lucide-react";
 import { Activity, AlertTriangle, Fingerprint, HeartPulse, Layers3 } from "lucide-react";
@@ -160,6 +169,11 @@ export type RealtimeSimulatorState = {
 
   // Config
   config: SimulatorConfig;
+
+  // Medical Reports
+  reports: MedicalReport[];
+  addReport: (report: MedicalReport) => void;
+
 };
 
 export const useRealtimeSimulatorStore = create<RealtimeSimulatorState>((set, get) => {
@@ -176,6 +190,50 @@ export const useRealtimeSimulatorStore = create<RealtimeSimulatorState>((set, ge
 
     start: () => set({ isRunning: true }),
     stop: () => set({ isRunning: false }),
+
+    reports: [
+      {
+        id: "rep-1",
+        patientId: "P-948271",
+        reportName: "Discharge summary",
+        uploadedAt: "Uploaded today",
+        proof: "Medical certificate verified",
+      },
+      {
+        id: "rep-2",
+        patientId: "P-948271",
+        reportName: "Lab report bundle",
+        uploadedAt: "Uploaded May 18, 2026",
+        proof: "Hospital stamped PDF attached",
+      },
+      {
+        id: "rep-3",
+        patientId: "P-948271",
+        reportName: "Previous surgery notes",
+        uploadedAt: "Uploaded May 02, 2026",
+        proof: "Doctor-signed certificate attached",
+      },
+    ],
+    addReport: (report) => set((s) => {
+      const newToast = {
+        id: "toast-" + Date.now(),
+        title: "New Report Released",
+        message: report.reportName + " has been compiled and secured under ledger.",
+        tone: "emerald" as const,
+      };
+      const newFeed = {
+        id: "feed-" + Date.now(),
+        time: "Just now",
+        title: "Report ledger synced",
+        detail: report.reportName + " released for Patient ID " + report.patientId + ".",
+        tone: "emerald" as const,
+      };
+      return {
+        reports: [report, ...s.reports],
+        toastQueue: [newToast, ...s.toastQueue],
+        feedItems: [newFeed, ...s.feedItems],
+      };
+    }),
   };
 });
 

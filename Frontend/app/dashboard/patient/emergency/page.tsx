@@ -1,7 +1,9 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { toast } from "sonner";
+import { motion, AnimatePresence } from "framer-motion";
 
 import {
   ArrowLeft,
@@ -11,19 +13,18 @@ import {
   PhoneCall,
   ShieldAlert,
   Siren,
-  Skull,
   SquareCheckBig,
   TriangleAlert,
   UserRound,
   Waves,
+  X,
+  Activity,
+  ShieldCheck,
 } from "lucide-react";
 import {
-  MotionCard,
   MotionPage,
   MotionStagger,
   MotionStaggerItem,
-  MotionPulseDot,
-  emergencyMotion,
 } from "@/components/motion/carecircle-motion";
 
 
@@ -56,6 +57,49 @@ const emergencyStatuses = [
 ];
 
 export default function EmergencyAssistancePage() {
+  const [selectedSymptoms, setSelectedSymptoms] = useState<string[]>([]);
+  const [dispatchActive, setDispatchActive] = useState(false);
+  const [countdown, setCountdown] = useState(45);
+
+  useEffect(() => {
+    if (!dispatchActive) return;
+    const timer = setInterval(() => {
+      setCountdown((prev) => {
+        if (prev <= 1) {
+          clearInterval(timer);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+    return () => clearInterval(timer);
+  }, [dispatchActive]);
+
+  const severity =
+    selectedSymptoms.length >= 3 ? "Critical" : selectedSymptoms.length >= 1 ? "High" : "Ready";
+  const assignedRoom =
+    selectedSymptoms.includes("Chest pain") || selectedSymptoms.includes("Breathing difficulty")
+      ? "Emergency Bay 02"
+      : selectedSymptoms.length
+        ? "Triage Desk 01"
+        : "Awaiting symptoms";
+
+  function toggleSymptom(symptom: string) {
+    setSelectedSymptoms((prev) =>
+      prev.includes(symptom) ? prev.filter((item) => item !== symptom) : [...prev, symptom],
+    );
+  }
+
+  function dispatchDemoSos() {
+    setCountdown(45);
+    setDispatchActive(true);
+    toast.error("Emergency dispatch started", {
+      description: selectedSymptoms.length
+        ? `Symptoms attached: ${selectedSymptoms.join(", ")}.`
+        : "Frontend demo alert sent without selected symptoms.",
+    });
+  }
+
   return (
     <MotionPage className="min-h-screen bg-black text-white">
       <MotionStagger className="relative overflow-hidden">
@@ -117,6 +161,7 @@ export default function EmergencyAssistancePage() {
                   className="relative flex h-52 w-52 items-center justify-center rounded-full border-4 border-rose-400/45 bg-[radial-gradient(circle,#ff4d6d_0%,#bb102d_55%,#5d0716_100%)] text-white shadow-[0_0_50px_rgba(255,0,51,0.65)] transition hover:scale-105 active:scale-95 sm:h-60 sm:w-60"
                   style={{ borderColor: "rgba(255,59,95,0.8)" }}
                   aria-label="Emergency SOS"
+                  onClick={dispatchDemoSos}
                 >
                   <span
                     className="absolute inset-0 rounded-full"
@@ -140,7 +185,7 @@ export default function EmergencyAssistancePage() {
                     <Siren size={44} />
                     <span className="text-2xl font-black uppercase tracking-[0.35em] sm:text-3xl">SOS</span>
                 <span className="max-w-[11rem] text-[11px] uppercase tracking-[0.22em] text-white/80">
-                      Hold for 3 seconds to dispatch help
+                      {dispatchActive ? "Dispatch active in demo" : "Tap to dispatch demo help"}
                     </span>
                   </span>
                 </button>
@@ -170,7 +215,13 @@ export default function EmergencyAssistancePage() {
                 {symptoms.map((symptom) => (
                   <button
                     key={symptom}
-                    className="group flex items-center justify-between rounded-[22px] border border-white/10 bg-black/25 px-4 py-4 text-left transition hover:border-rose-400/35 hover:bg-rose-400/10"
+                    type="button"
+                    onClick={() => toggleSymptom(symptom)}
+                    className={`group flex items-center justify-between rounded-[22px] border px-4 py-4 text-left transition ${
+                      selectedSymptoms.includes(symptom)
+                        ? "border-rose-400/40 bg-rose-400/15"
+                        : "border-white/10 bg-black/25 hover:border-rose-400/35 hover:bg-rose-400/10"
+                    }`}
                   >
                     <div className="flex items-center gap-3">
                       <span className="flex h-11 w-11 items-center justify-center rounded-2xl border border-rose-400/20 bg-rose-400/10 text-rose-300">
@@ -179,7 +230,7 @@ export default function EmergencyAssistancePage() {
                       <span className="text-sm font-semibold text-white">{symptom}</span>
                     </div>
                     <span className="text-xs font-semibold uppercase tracking-[0.2em] text-white/35 transition group-hover:text-rose-300">
-                      Select
+                      {selectedSymptoms.includes(symptom) ? "Selected" : "Select"}
                     </span>
                   </button>
                 ))}
@@ -208,6 +259,22 @@ export default function EmergencyAssistancePage() {
               </div>
 
               <div className="space-y-3">
+                <div className="rounded-[22px] border border-cyan-400/20 bg-cyan-400/10 p-4">
+                  <div className="text-sm font-semibold uppercase tracking-[0.16em] text-cyan-300">Computed severity</div>
+                  <div className="mt-1 text-xl font-black text-white">{severity}</div>
+                  <div className="mt-2 text-sm leading-6 text-white/65">
+                    {selectedSymptoms.length
+                      ? `${selectedSymptoms.length} symptom signal(s) attached to the demo dispatch.`
+                      : "Select symptoms to update the frontend triage model."}
+                  </div>
+                </div>
+                <div className="rounded-[22px] border border-violet-400/20 bg-violet-400/10 p-4">
+                  <div className="text-sm font-semibold uppercase tracking-[0.16em] text-violet-300">Assigned room</div>
+                  <div className="mt-1 text-xl font-black text-white">{assignedRoom}</div>
+                  <div className="mt-2 text-sm leading-6 text-white/65">
+                    {dispatchActive ? "Nurse Asha is assigned in this frontend demo." : "Dispatch assigns after SOS is tapped."}
+                  </div>
+                </div>
                 {emergencyStatuses.map((status) => {
                   const toneStyles =
                     status.tone === "emerald"
@@ -247,14 +314,16 @@ export default function EmergencyAssistancePage() {
 
                 <div className="rounded-[22px] border border-white/10 bg-black/25 p-5">
                   <div className="text-sm text-white/55">Dispatch ETA</div>
-                  <div className="mt-2 text-4xl font-black text-white">90s</div>
+                  <div className="mt-2 text-4xl font-black text-white">{dispatchActive ? "45s" : "90s"}</div>
                   <div className="mt-2 text-xs uppercase tracking-[0.22em] text-white/40">Nurse en route</div>
                 </div>
 
                 <div className="rounded-[22px] border border-white/10 bg-black/25 p-5">
                   <div className="text-sm text-white/55">Response state</div>
-                  <div className="mt-2 text-2xl font-bold text-emerald-300">Active</div>
-                  <div className="mt-2 text-sm text-white/60">Rapid response team notified</div>
+                  <div className="mt-2 text-2xl font-bold text-emerald-300">{dispatchActive ? "Active" : "Ready"}</div>
+                  <div className="mt-2 text-sm text-white/60">
+                    {dispatchActive ? "Rapid response team notified" : "Tap SOS to activate demo dispatch"}
+                  </div>
                 </div>
               </div>
             </section>
@@ -294,6 +363,124 @@ export default function EmergencyAssistancePage() {
           </MotionStaggerItem>
         </div>
       </MotionStagger>
+
+      <AnimatePresence>
+        {dispatchActive && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[200] flex flex-col justify-between bg-black/95 p-6 backdrop-blur-md overflow-y-auto text-white"
+          >
+            {/* Pulsing deep red/siren radial background glow */}
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(244,63,94,0.22)_0%,black_100%)] animate-pulse" />
+            <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(239,68,68,0.01)_1px,transparent_1px),linear-gradient(90deg,rgba(239,68,68,0.01)_1px,transparent_1px)] bg-[size:30px_30px] opacity-40" />
+
+            {/* Header HUD */}
+            <div className="relative z-10 flex items-center justify-between border-b border-rose-500/20 pb-4">
+              <div className="flex items-center gap-3">
+                <span className="flex h-11 w-11 animate-bounce items-center justify-center rounded-2xl border border-rose-500/30 bg-rose-500/20 text-rose-400">
+                  <Siren size={20} className="animate-pulse" />
+                </span>
+                <div>
+                  <div className="text-[10px] font-bold uppercase tracking-[0.25em] text-rose-400">Critical Alert Signal</div>
+                  <h2 className="text-xl font-black uppercase tracking-wider text-white">Emergency Dispatch Active</h2>
+                </div>
+              </div>
+              <button
+                onClick={() => setDispatchActive(false)}
+                className="inline-flex items-center gap-2 rounded-full border border-rose-500/30 bg-rose-500/10 px-4 py-2 text-xs font-bold uppercase tracking-wider text-rose-300 transition hover:bg-rose-500/20 cursor-pointer shadow-[0_0_20px_rgba(239,68,68,0.2)] animate-pulse"
+              >
+                <X size={14} />
+                Disarm SOS
+              </button>
+            </div>
+
+            {/* Content Core */}
+            <div className="relative z-10 my-auto grid gap-8 lg:grid-cols-[1.1fr_0.9fr] max-w-6xl mx-auto w-full py-8">
+              
+              {/* Left pane: Countdown + Siren audio wave visual */}
+              <div className="flex flex-col items-center justify-center text-center p-5 rounded-3xl border border-rose-500/15 bg-rose-950/5">
+                <div className="text-xs uppercase font-mono tracking-[0.25em] text-rose-400/70">Estimated Rapid Response Arrival</div>
+                
+                {/* Large countdown */}
+                <div className="mt-4 text-7xl sm:text-8xl font-black font-mono tracking-tighter text-white drop-shadow-[0_0_25px_rgba(239,68,68,0.4)]">
+                  00:{countdown < 10 ? `0${countdown}` : countdown}s
+                </div>
+
+                {/* Simulated sound/frequency wave */}
+                <div className="mt-8 flex items-end justify-center gap-1.5 h-16 w-64">
+                  {[...Array(14)].map((_, i) => (
+                    <motion.div
+                      key={i}
+                      animate={{ height: [12, ((i * 7) % 40) + 15, 12] }}
+                      transition={{ duration: 0.6 + i * 0.05, repeat: Infinity, ease: "easeInOut" }}
+                      className="w-1.5 rounded-full bg-rose-500/70 shadow-[0_0_10px_rgba(239,68,68,0.5)]"
+                    />
+                  ))}
+                </div>
+
+                <div className="mt-8 flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-white/50">
+                  <span className="h-2 w-2 animate-ping rounded-full bg-rose-400" />
+                  Siren active & streaming location coordinates
+                </div>
+              </div>
+
+              {/* Right pane: vertical live response tracker */}
+              <div className="rounded-3xl border border-white/5 bg-black/40 p-6 shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col justify-between">
+                <div className="space-y-4">
+                  <div className="text-xs font-mono font-bold uppercase tracking-[0.22em] text-white/40 border-b border-white/5 pb-2">
+                    Active Dispatch Telemetry Logs
+                  </div>
+
+                  <div className="relative pl-6 space-y-4 text-left">
+                    <div className="absolute left-2.5 top-2 bottom-2 w-px bg-rose-500/20" />
+
+                    <div className="relative">
+                      <span className="absolute -left-[20px] top-1.5 h-2 w-2 rounded-full bg-rose-500 shadow-[0_0_10px_rgba(239,68,68,1)]" />
+                      <div className="text-xs font-bold text-white">Quantum Signal Secured</div>
+                      <div className="text-[10px] text-white/50">Broadcasting coordinate arrays to nearest responder hub.</div>
+                    </div>
+
+                    <div className="relative">
+                      <span className="absolute -left-[20px] top-1.5 h-2 w-2 rounded-full bg-rose-500 shadow-[0_0_10px_rgba(239,68,68,1)]" />
+                      <div className="text-xs font-bold text-white">Triage Assessment Synced</div>
+                      <div className="text-[10px] text-white/50">Symptom signal payload decrypted: {selectedSymptoms.length ? selectedSymptoms.join(", ") : "Rapid check requested"}.</div>
+                    </div>
+
+                    <div className="relative animate-pulse">
+                      <span className="absolute -left-[20px] top-1.5 h-2 w-2 rounded-full bg-amber-400 shadow-[0_0_10px_rgba(245,158,11,1)]" />
+                      <div className="text-xs font-bold text-amber-300">Ambulance Team Dispatched</div>
+                      <div className="text-[10px] text-white/50">Emergency responder bay dispatch: UNIT_3. Assigned: {assignedRoom}.</div>
+                    </div>
+
+                    <div className="relative opacity-55">
+                      <span className="absolute -left-[20px] top-1.5 h-2 w-2 rounded-full bg-white/20" />
+                      <div className="text-xs font-bold text-white/60">Rapid response handoff</div>
+                      <div className="text-[10px] text-white/40">Nurse Asha assigning to secure local room.</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-6 flex items-center gap-3 rounded-2xl bg-rose-950/20 border border-rose-500/10 p-3 text-xs text-rose-300 font-mono">
+                  <ShieldCheck size={16} className="text-emerald-400 shrink-0" />
+                  <span>SECURE CHANNEL INDEX: CC-SOS-948271</span>
+                </div>
+              </div>
+
+            </div>
+
+            {/* Bottom HUD Metadata */}
+            <div className="relative z-10 border-t border-white/5 pt-4 text-center">
+              <div className="inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.2em] text-white/40">
+                <Activity className="h-3.5 w-3.5 text-rose-400" />
+                Live hospital telemetry uplink active / 911 fallback armed
+              </div>
+            </div>
+
+          </motion.div>
+        )}
+      </AnimatePresence>
     </MotionPage>
   );
 }

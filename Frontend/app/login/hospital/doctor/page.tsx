@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { Stethoscope, ArrowRight, FileText, Sparkles } from "lucide-react";
 import { MotionPage, MotionStagger, MotionStaggerItem } from "@/components/motion/carecircle-motion";
+import { DoctorAuthForm } from "@/components/portal/DoctorAuthForm";
 
 export default function HospitalDoctorPortalPage() {
   return (
@@ -47,9 +48,9 @@ export default function HospitalDoctorPortalPage() {
                   <li><Stethoscope size={16} /> Clinical coordination</li>
                 </ul>
 
-                <Link href="/dashboard/doctor" className="cc-portal-link-btn cc-portal-link-btn--cyan">
-                  Enter Portal <ArrowRight size={18} />
-                </Link>
+                <div className="mt-6">
+                  <DoctorAuthForm />
+                </div>
               </div>
             </MotionStaggerItem>
           </div>

@@ -4,7 +4,6 @@ import React from "react";
 import { useRealtimeSimulatorStore } from "./realtimeSimulatorStore";
 
 export default function RealtimeSimulatorDriver() {
-  const now = useRealtimeSimulatorStore((s) => s.now);
   const isRunning = useRealtimeSimulatorStore((s) => s.isRunning);
   const tickMs = useRealtimeSimulatorStore((s) => s.config.tickMs);
 

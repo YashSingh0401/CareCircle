@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { Fingerprint, Database, Activity, ArrowLeft } from 'lucide-react';
+import { PatientAuthForm } from '@/components/portal/PatientAuthForm';
 
 export default function PatientPortalPage() {
   return (
@@ -42,9 +43,9 @@ export default function PatientPortalPage() {
           <li><Fingerprint size={16} /> Biometric authentication</li>
         </ul>
 
-        <Link href="/dashboard/patient" style={{ marginTop: '1rem', paddingTop: '2rem', display: 'flex', alignItems: 'center', color: 'var(--cc-neon-blue)', fontWeight: 600, fontSize: '0.95rem', textDecoration: 'none' }}>
-          Enter Portal <ArrowLeft size={18} style={{ marginLeft: '4px', transform: 'rotate(180deg)' }} />
-        </Link>
+        <div className="mt-6">
+          <PatientAuthForm />
+        </div>
       </div>
     </div>
   );

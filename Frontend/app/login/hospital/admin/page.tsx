@@ -1,9 +1,15 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import Link from "next/link";
-import { UserCog, ArrowRight, Database, Shield } from "lucide-react";
+import { UserCog, ArrowRight, Database, Shield, Building2 } from "lucide-react";
 import { MotionPage, MotionStagger, MotionStaggerItem } from "@/components/motion/carecircle-motion";
+import { AdminAuthForm } from "@/components/portal/AdminAuthForm";
+import { HospitalRegistrationForm } from "@/components/portal/HospitalRegistrationForm";
 
 export default function HospitalAdminPortalPage() {
+  const [isRegistering, setIsRegistering] = useState(false);
+
   return (
     <MotionPage className="cc-login-container">
       <MotionStagger className="w-full">
@@ -22,10 +28,16 @@ export default function HospitalAdminPortalPage() {
           <div className="cc-portal-centered-content">
             <MotionStaggerItem className="cc-portal-header">
               <h1 className="cc-h1">
-                Admin <span className="cc-text-gradient">Control Portal</span>
+                {isRegistering ? (
+                  <>Facility <span className="cc-text-gradient">Registration</span></>
+                ) : (
+                  <>Admin <span className="cc-text-gradient">Control Portal</span></>
+                )}
               </h1>
               <p className="cc-subtitle">
-                Monitor systems, manage records, and oversee hospital-wide access and analytics.
+                {isRegistering
+                  ? "Onboard a new hospital to generate secure Super Admin credentials."
+                  : "Monitor systems, manage records, and oversee hospital-wide access and analytics."}
               </p>
             </MotionStaggerItem>
 
@@ -33,23 +45,41 @@ export default function HospitalAdminPortalPage() {
               <div className="cc-portal-gradient-bg" />
               <div className="cc-login-card cc-login-admin">
                 <div className="cc-login-icon-box">
-                  <UserCog size={32} />
+                  {isRegistering ? <Building2 size={32} /> : <UserCog size={32} />}
                 </div>
 
-                <h2 className="cc-h1" style={{ fontSize: "1.75rem", marginBottom: "0.5rem" }}>Admin Login</h2>
-                <p className="cc-card-desc">
-                  Manage users, audit logs, databases, and operational controls from a central dashboard.
-                </p>
+                <div className="flex items-center justify-between mb-4">
+                  <h2 className="cc-h1" style={{ fontSize: "1.75rem", margin: 0 }}>
+                    {isRegistering ? "Hospital Setup" : "Admin Login"}
+                  </h2>
+                  <button
+                    onClick={() => setIsRegistering(!isRegistering)}
+                    className="text-xs font-semibold uppercase tracking-wider text-rose-400 hover:text-rose-300 transition"
+                  >
+                    {isRegistering ? "Back to Login" : "Register Facility"}
+                  </button>
+                </div>
 
-                <ul className="cc-login-features">
-                  <li><Database size={16} /> Database administration</li>
-                  <li><Shield size={16} /> Security and compliance</li>
-                  <li><UserCog size={16} /> User management</li>
-                </ul>
+                {!isRegistering && (
+                  <>
+                    <p className="cc-card-desc mb-4">
+                      Manage users, audit logs, databases, and operational controls from a central dashboard.
+                    </p>
+                    <ul className="cc-login-features mb-6">
+                      <li><Database size={16} /> Database administration</li>
+                      <li><Shield size={16} /> Security and compliance</li>
+                      <li><UserCog size={16} /> User management</li>
+                    </ul>
+                  </>
+                )}
 
-                <Link href="/dashboard/admin" className="cc-portal-link-btn cc-portal-link-btn--pink">
-                  Enter Portal <ArrowRight size={18} />
-                </Link>
+                <div className={isRegistering ? "mt-2" : ""}>
+                  {isRegistering ? (
+                    <HospitalRegistrationForm onComplete={() => setIsRegistering(false)} />
+                  ) : (
+                    <AdminAuthForm />
+                  )}
+                </div>
               </div>
             </MotionStaggerItem>
           </div>

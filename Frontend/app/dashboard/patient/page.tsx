@@ -7,13 +7,11 @@ import {
   Bell,
   CheckCircle2,
   Clock3,
-  FileText,
   HeartPulse,
   Lock,
   ShieldCheck,
   Sparkles,
   Siren,
-  TriangleAlert,
   UserRound,
   Zap,
 } from "lucide-react";
@@ -28,6 +26,12 @@ import {
 } from "@/components/motion/carecircle-motion";
 import { useRealtimeSimulatorStore } from "@/lib/realtime/realtimeSimulatorStore";
 import { RealtimePatientQueueWidget } from "@/app/dashboard/patient/queue/RealtimePatientQueueWidget";
+import { AIReportAnalyzerMock } from "@/components/demo/AIReportAnalyzerMock";
+import { HospitalMapMock } from "@/components/demo/HospitalMapMock";
+import { PatientTimelineMock } from "@/components/demo/PatientTimelineMock";
+import { AIHealthcareChatbot } from "@/components/demo/AIHealthcareChatbot";
+import { SmartNotificationCenter } from "@/components/demo/SmartNotificationCenter";
+import { HospitalActivityFeed } from "@/components/dashboard/HospitalActivityFeed";
 
 const permanentHistoryItems = [
   {
@@ -61,9 +65,11 @@ function doctorTone(state: string) {
 }
 
 export default function PatientDashboard() {
+  const [notificationsOpen, setNotificationsOpen] = React.useState(false);
   const liveDoctors = useRealtimeSimulatorStore((s) => s.liveDoctors);
+  const reports = useRealtimeSimulatorStore((s) => s.reports);
+  const patientReports = useMemo(() => reports.filter((r) => r.patientId === "P-948271"), [reports]);
   const liveEmergencies = useRealtimeSimulatorStore((s) => s.liveEmergencies);
-  const feedItems = useRealtimeSimulatorStore((s) => s.feedItems);
   const toastQueue = useRealtimeSimulatorStore((s) => s.toastQueue);
   const liveQueue = useRealtimeSimulatorStore((s) => s.liveQueue);
 
@@ -72,7 +78,6 @@ export default function PatientDashboard() {
     [liveEmergencies],
   );
   const topDoctors = useMemo(() => liveDoctors.slice(0, 4), [liveDoctors]);
-  const recentFeed = useMemo(() => feedItems.slice(0, 6), [feedItems]);
   const latestToasts = useMemo(() => toastQueue.slice(0, 4), [toastQueue]);
 
   const lastToastIdRef = useRef<string | null>(null);
@@ -118,9 +123,25 @@ export default function PatientDashboard() {
               </Link>
             </div>
 
-            <div className="hidden items-center gap-2 rounded-full border border-cyan-400/20 bg-cyan-400/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-cyan-300 sm:inline-flex">
-              <Zap size={14} />
-              AI sync active
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => setNotificationsOpen(true)}
+                className="relative inline-flex items-center justify-center rounded-full border border-violet-400/30 bg-violet-400/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-violet-300 transition hover:border-violet-400/60 hover:bg-violet-400/20 cursor-pointer shadow-[0_0_15px_rgba(139,92,246,0.15)]"
+              >
+                <Bell size={14} className="mr-1.5 animate-pulse" />
+                Console Alerts
+                {toastQueue.length + liveEmergencies.length > 0 && (
+                  <span className="absolute -top-1 -right-1 flex h-4.5 w-4.5 items-center justify-center rounded-full bg-violet-500 text-[9px] font-black text-white border border-slate-950">
+                    {toastQueue.length + liveEmergencies.length}
+                  </span>
+                )}
+              </button>
+
+              <div className="hidden items-center gap-2 rounded-full border border-cyan-400/20 bg-cyan-400/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-cyan-300 sm:inline-flex">
+                <Zap size={14} />
+                AI sync active
+              </div>
             </div>
           </MotionStaggerItem>
 
@@ -211,13 +232,21 @@ export default function PatientDashboard() {
                 transition={emergencyMotion.emergencyBorder.transition}
               >
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2 text-lg font-semibold">
-                    <Bell size={18} className="text-violet-300" />
-                    Notifications
-                  </div>
-                  <span className="rounded-full border border-violet-400/20 bg-violet-400/10 px-2.5 py-1 text-[11px] font-semibold text-violet-300">
-                    {latestToasts.length} live
-                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setNotificationsOpen(true)}
+                    className="flex items-center gap-2 text-lg font-semibold text-left cursor-pointer group/bell"
+                  >
+                    <Bell size={18} className="text-violet-300 group-hover/bell:animate-bounce transition" />
+                    <span>Notifications</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setNotificationsOpen(true)}
+                    className="rounded-full border border-violet-400/20 bg-violet-400/10 px-2.5 py-1 text-[11px] font-semibold text-violet-300 cursor-pointer hover:bg-violet-400/20 transition"
+                  >
+                    Expand Drawer ({latestToasts.length} live)
+                  </button>
                 </div>
 
                 <div className="mt-5 space-y-3">
@@ -343,34 +372,9 @@ export default function PatientDashboard() {
                 </div>
               </MotionCard>
 
-              <MotionCard className="rounded-[28px] border border-white/10 bg-white/5 p-5 shadow-[0_20px_60px_rgba(0,0,0,0.35)] backdrop-blur-2xl lg:col-span-12 lg:p-6 min-h-[280px] flex flex-col">
-                <div className="mb-5 flex items-center justify-between">
-                  <div className="flex items-center gap-2 text-lg font-semibold">
-                    <FileText size={18} className="text-cyan-300" />
-                    Dashboard activity feed
-                  </div>
-                  <span className="text-sm text-cyan-300">Live hospital telemetry</span>
-                </div>
-
-                <div className="grid gap-3 lg:grid-cols-2">
-                  {recentFeed.map((entry) => (
-                    <div key={`${entry.id}-${entry.time}`} className="rounded-[22px] border border-white/10 bg-black/25 p-4">
-                      <div className="flex items-start gap-3">
-                        <div className="rounded-2xl border border-cyan-400/20 bg-cyan-400/10 p-2 text-cyan-300">
-                          {entry.icon ? <entry.icon size={16} /> : <Sparkles size={16} />}
-                        </div>
-                        <div className="min-w-0 flex-1">
-                          <div className="flex items-center justify-between gap-3">
-                            <div className="text-sm font-semibold text-white">{entry.title}</div>
-                            <div className="text-[11px] uppercase tracking-[0.18em] text-white/40">{entry.time}</div>
-                          </div>
-                          <p className="mt-1 text-sm leading-6 text-white/60">{entry.detail}</p>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </MotionCard>
+              <div className="lg:col-span-12">
+                <HospitalActivityFeed />
+              </div>
 
               <MotionCard className="rounded-[28px] border border-white/10 bg-white/5 p-5 shadow-[0_20px_60px_rgba(0,0,0,0.35)] backdrop-blur-2xl lg:col-span-12 lg:p-6 min-h-[280px] flex flex-col">
                 <div className="mb-5 flex items-center justify-between">
@@ -385,13 +389,29 @@ export default function PatientDashboard() {
                 </div>
 
                 <div className="grid gap-3 md:grid-cols-3">
-                  {permanentHistoryItems.map((item) => (
-                    <div key={item.title} className="rounded-[22px] border border-white/10 bg-black/25 p-4">
-                      <div className="text-sm font-semibold text-white">{item.title}</div>
-                      <div className="mt-1 text-xs uppercase tracking-[0.18em] text-white/40">{item.date}</div>
-                      <div className="mt-3 flex items-center gap-2 text-sm text-white/65">
-                        <CheckCircle2 size={14} className="text-cyan-300" />
-                        {item.proof}
+                  {patientReports.map((item) => (
+                    <div key={item.id} className="rounded-[22px] border border-white/10 bg-black/25 p-4 hover:border-cyan-400/30 hover:bg-cyan-400/5 transition-all duration-300">
+                      <div className="text-sm font-semibold text-white truncate">{item.reportName}</div>
+                      <div className="mt-1 text-[10px] uppercase tracking-[0.18em] text-white/40">{item.uploadedAt}</div>
+                      <div className="mt-3 flex items-center justify-between text-xs text-white/65">
+                        <span className="flex items-center gap-1.5">
+                          <CheckCircle2 size={13} className="text-cyan-300 animate-pulse" />
+                          <span className="text-[11px] font-medium truncate max-w-[130px]">{item.proof}</span>
+                        </span>
+                        {item.findings && (
+                          <button
+                            type="button"
+                            onClick={() => {
+                              toast.info(item.reportName + " Summary", {
+                                description: item.findings,
+                                className: "border border-cyan-500/20 bg-black/90 text-cyan-300",
+                              });
+                            }}
+                            className="text-cyan-400 font-bold hover:underline cursor-pointer text-[11px]"
+                          >
+                            View Summary
+                          </button>
+                        )}
                       </div>
                     </div>
                   ))}
@@ -413,10 +433,24 @@ export default function PatientDashboard() {
                   </div>
                 </div>
               </MotionCard>
+
+              <div className="lg:col-span-12">
+                <AIReportAnalyzerMock />
+              </div>
+
+              <div className="lg:col-span-7">
+                <PatientTimelineMock />
+              </div>
+
+              <div className="lg:col-span-5">
+                <HospitalMapMock />
+              </div>
             </main>
           </MotionStaggerItem>
         </div>
       </MotionStagger>
+      <AIHealthcareChatbot />
+      <SmartNotificationCenter isOpen={notificationsOpen} onClose={() => setNotificationsOpen(false)} />
     </MotionPage>
   );
 }

@@ -23,6 +23,7 @@ import {
   Route,
 } from "lucide-react";
 import { motion } from "framer-motion";
+import { toast } from "sonner";
 
 import {
   MotionCard,
@@ -108,6 +109,7 @@ function clamp(n: number, a: number, b: number) {
 
 export default function CareCircleLanding() {
   const [mouse, setMouse] = React.useState({ x: 0.5, y: 0.5 });
+  const [demoSosActive, setDemoSosActive] = React.useState(false);
 
   React.useEffect(() => {
     const onMove = (e: MouseEvent) => {
@@ -130,6 +132,7 @@ export default function CareCircleLanding() {
   const criticalEmergency = liveEmergencies.find((e) => e.priority === "critical");
   const queueCalled = liveQueue.filter((q) => q.status === "called");
   const queuePriority = liveQueue.filter((q) => q.status === "priority");
+  const sosActive = emergencyPulseOn || demoSosActive;
 
   const heroParallax = {
     transform: `translate3d(${(mouse.x - 0.5) * 10}px, ${(mouse.y - 0.5) * 10}px, 0)`,
@@ -138,6 +141,14 @@ export default function CareCircleLanding() {
   const dashboardParallax = {
     transform: `translate3d(${(mouse.x - 0.5) * 14}px, ${(mouse.y - 0.5) * 8}px, 0)`,
   };
+
+  function triggerDemoSos() {
+    setDemoSosActive(true);
+    toast.error("Demo SOS dispatched", {
+      description: "Frontend-only alert sent to the simulated triage board.",
+    });
+    window.setTimeout(() => setDemoSosActive(false), 7000);
+  }
 
   return (
     <div className="cc-landing-root">
@@ -270,7 +281,7 @@ export default function CareCircleLanding() {
 
                       <div className="cc-hero-queue-strip">
                         <div className="cc-queue-strip-left">
-                          <span className={"cc-queue-flag " + (emergencyPulseOn ? "cc-queue-flag--hot" : "")}>Live</span>
+                          <span className={"cc-queue-flag " + (sosActive ? "cc-queue-flag--hot" : "")}>Live</span>
                           <span className="cc-queue-strip-title">Realtime notifications</span>
                         </div>
                         <div className="cc-queue-strip-right">
@@ -355,7 +366,7 @@ export default function CareCircleLanding() {
                       <div className="cc-live-card-title">
                         <Layers3 size={16} /> Patient Queue
                       </div>
-                      <span className={"cc-live-status " + (emergencyPulseOn ? "cc-live-status--hot" : "")}>Realtime</span>
+                      <span className={"cc-live-status " + (sosActive ? "cc-live-status--hot" : "")}>Realtime</span>
                     </div>
 
                     <div className="cc-queue-rows">
@@ -406,8 +417,8 @@ export default function CareCircleLanding() {
                       <div className="cc-ai-preview-left">
                         <div className="cc-ai-score">
                           <span className="cc-ai-score-label">Risk Index</span>
-                          <span className={"cc-ai-score-value " + (emergencyPulseOn ? "cc-ai-score-value--hot" : "")}>{
-                            Math.min(99, 38 + queuePriority.length * 14 + (emergencyPulseOn ? 22 : 0))
+                          <span className={"cc-ai-score-value " + (sosActive ? "cc-ai-score-value--hot" : "")}>{
+                            Math.min(99, 38 + queuePriority.length * 14 + (sosActive ? 22 : 0))
                           }</span>
                         </div>
                         <div className="cc-ai-bullets">
@@ -427,7 +438,7 @@ export default function CareCircleLanding() {
                       </div>
 
                       <div className="cc-ai-preview-right">
-                        <div className={"cc-ai-holo-chart " + (emergencyPulseOn ? "cc-ai-holo-chart--pulse" : "")}
+                        <div className={"cc-ai-holo-chart " + (sosActive ? "cc-ai-holo-chart--pulse" : "")}
                           aria-hidden>
                           <div className="cc-ai-holo-chart-grid" />
                           {[6, 12, 18, 14, 22, 26, 19].map((h, i) => (
@@ -446,14 +457,14 @@ export default function CareCircleLanding() {
 
             {/* Right: emergency + feed + notifications */}
             <div className="cc-live-right">
-              <div className={"cc-live-card cc-live-card--emergency " + (emergencyPulseOn ? "cc-live-card--emergency--hot" : "")}
+              <div className={"cc-live-card cc-live-card--emergency " + (sosActive ? "cc-live-card--emergency--hot" : "")}
               >
                 <div className="cc-live-card-head">
                   <div className="cc-live-card-title">
                     <AlertTriangle size={16} /> Emergency Triage
                   </div>
-                  <span className={"cc-live-status " + (emergencyPulseOn ? "cc-live-status--hot" : "cc-live-status--stable")}>
-                    {emergencyPulseOn ? "Critical" : "Stable"}
+                  <span className={"cc-live-status " + (sosActive ? "cc-live-status--hot" : "cc-live-status--stable")}>
+                    {sosActive ? "Critical" : "Stable"}
                   </span>
                 </div>
 
@@ -472,7 +483,7 @@ export default function CareCircleLanding() {
                       <span className="cc-nurse-dot" /> Nurse Notification
                     </div>
                     <div className="cc-nurse-line">
-                      {emergencyPulseOn ? "Response acknowledged" : "No critical alerts"}
+                      {sosActive ? "Response acknowledged" : "No critical alerts"}
                     </div>
                   </div>
                 </div>
@@ -577,14 +588,15 @@ export default function CareCircleLanding() {
             </p>
           </div>
 
-          <div className={"cc-emergency-drama " + (emergencyPulseOn ? "cc-emergency-drama--hot" : "")}
+          <div className={"cc-emergency-drama " + (sosActive ? "cc-emergency-drama--hot" : "")}
           >
             <div className="cc-emergency-left">
               <button
-                className={"cc-sos-giant " + (emergencyPulseOn ? "cc-sos-giant--active" : "")}
+                className={"cc-sos-giant " + (sosActive ? "cc-sos-giant--active" : "")}
                 type="button"
                 aria-label="Simulate emergency SOS"
                 onClick={() => {
+                  triggerDemoSos();
                   // We don't have a real SOS backend in this landing page.
                   // This click just creates a “demo feel” without mutating store.
                   // The realtime driver will continue simulation regardless.
@@ -593,8 +605,8 @@ export default function CareCircleLanding() {
               >
                 <motion.div
                   className="cc-sos-giant-glow"
-                  animate={emergencyPulseOn ? { opacity: [0.55, 1, 0.55] } : { opacity: 0.65 }}
-                  transition={{ duration: 1.05, repeat: emergencyPulseOn ? Infinity : 0, ease: "easeInOut" }}
+                  animate={sosActive ? { opacity: [0.55, 1, 0.55] } : { opacity: 0.65 }}
+                  transition={{ duration: 1.05, repeat: sosActive ? Infinity : 0, ease: "easeInOut" }}
                 />
                 SOS
                 <span className="cc-sos-sub">One tap dispatch</span>
@@ -607,11 +619,11 @@ export default function CareCircleLanding() {
                 </div>
                 <div className="cc-emergency-sim-row">
                   <div className="cc-emergency-key">Realtime Nurse Notification</div>
-                  <div className="cc-emergency-value">{emergencyPulseOn ? "Acknowledged • path recalculated" : "Standby • monitoring vitals"}</div>
+                  <div className="cc-emergency-value">{sosActive ? "Acknowledged - path recalculated" : "Standby - monitoring vitals"}</div>
                 </div>
                 <div className="cc-emergency-sim-row">
                   <div className="cc-emergency-key">Dispatch Model Update</div>
-                  <div className="cc-emergency-value">{emergencyPulseOn ? "Triage plan refreshing" : "AI dispatch stable"}</div>
+                  <div className="cc-emergency-value">{sosActive ? "Triage plan refreshing" : "AI dispatch stable"}</div>
                 </div>
               </div>
             </div>
@@ -623,7 +635,7 @@ export default function CareCircleLanding() {
                 </div>
                 <div className="cc-emergency-panel-body">
                   <div className="cc-emergency-alert-badge">
-                    <AlertTriangle size={16} /> {emergencyPulseOn ? "ALERT ACTIVE" : "READY"}
+                    <AlertTriangle size={16} /> {sosActive ? "ALERT ACTIVE" : "READY"}
                   </div>
 
                   <div className="cc-emergency-alert-copy">
@@ -640,7 +652,7 @@ export default function CareCircleLanding() {
                     </div>
                     <div className="cc-room-track">
                       <div className="cc-room-track-head">Rapid Response</div>
-                      <div className="cc-room-track-body">{emergencyPulseOn ? "En route now" : "Standby"}</div>
+                      <div className="cc-room-track-body">{sosActive ? "En route now" : "Standby"}</div>
                     </div>
                   </div>
                 </div>
@@ -744,9 +756,9 @@ export default function CareCircleLanding() {
             </div>
 
             <div className="cc-footer-links">
-              <a href="#" className="cc-footer-link">Privacy</a>
-              <a href="#" className="cc-footer-link">Terms</a>
-              <a href="#" className="cc-footer-link">Contact</a>
+              <Link href="/privacy" className="cc-footer-link">Privacy</Link>
+              <Link href="/terms" className="cc-footer-link">Terms</Link>
+              <Link href="/contact" className="cc-footer-link">Contact</Link>
             </div>
           </div>
 
@@ -758,15 +770,15 @@ export default function CareCircleLanding() {
             </div>
 
             <div className="cc-footer-social" aria-label="Social icons">
-              <a href="#" className="cc-social">
+              <Link href="/login" className="cc-social" aria-label="Open CareCircle portal">
                 <Sparkles size={16} />
-              </a>
-              <a href="#" className="cc-social">
+              </Link>
+              <Link href="/dashboard/patient" className="cc-social" aria-label="Open patient dashboard">
                 <Bell size={16} />
-              </a>
-              <a href="#" className="cc-social">
+              </Link>
+              <Link href="/dashboard/admin" className="cc-social" aria-label="Open admin dashboard">
                 <Shield size={16} />
-              </a>
+              </Link>
             </div>
           </div>
         </footer>
