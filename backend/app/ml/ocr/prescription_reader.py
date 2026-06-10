@@ -10,7 +10,7 @@ genai.configure(api_key=settings.gemini_api_key)
 
 class PrescriptionReader:
     def __init__(self):
-        self.model = genai.GenerativeModel('gemini-1.5-flash')
+        self.model = genai.GenerativeModel('gemini-flash-latest')
 
     def extract_text_tesseract(self, image_bytes: bytes) -> str:
         """Extract raw text from prescription image using Tesseract OCR"""

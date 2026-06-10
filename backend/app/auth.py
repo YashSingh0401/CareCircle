@@ -120,19 +120,24 @@ def _claims_to_user(claims: dict) -> dict:
     }
 
 
-async def get_current_user(authorization: str | None = Header(default=None)) -> dict:
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+
+bearer_scheme = HTTPBearer(auto_error=False)
+
+async def get_current_user(token: HTTPAuthorizationCredentials | None = Depends(bearer_scheme)) -> dict:
     """Strict — raise 401 if no/invalid token."""
-    if not authorization or not authorization.lower().startswith("bearer "):
+    if not token:
         raise HTTPException(status.HTTP_401_UNAUTHORIZED, "Missing bearer token")
-    claims = await verify_jwt(authorization.split(" ", 1)[1])
+    claims = await verify_jwt(token.credentials)
     return _claims_to_user(claims)
 
 
-async def get_current_user_optional(authorization: str | None = Header(default=None)) -> dict | None:
+async def get_current_user_optional(token: HTTPAuthorizationCredentials | None = Depends(bearer_scheme)) -> dict | None:
     """Lax — return None instead of raising. Use for public-browse routes."""
-    if not authorization:
+    if not token:
         return None
     try:
-        return await get_current_user(authorization)
+        claims = await verify_jwt(token.credentials)
+        return _claims_to_user(claims)
     except HTTPException:
         return None

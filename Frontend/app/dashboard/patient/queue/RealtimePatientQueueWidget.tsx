@@ -4,7 +4,7 @@ import React, { useMemo, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Zap, AlertTriangle, HeartPulse, ShieldAlert, UserCheck, Stethoscope } from "lucide-react";
 
-import { useRealtimeSimulatorStore } from "@/lib/realtime/realtimeSimulatorStore";
+import { useAppStore } from "@/lib/store";
 import { cn } from "@/lib/utils";
 import { MotionPulseDot } from "@/components/motion/carecircle-motion";
 
@@ -59,7 +59,7 @@ function parseWaitMinutes(wait?: string) {
 }
 
 function useLiveClockTick() {
-  const now = useRealtimeSimulatorStore((s) => s.now);
+  const now = new Date();
   return now;
 }
 
@@ -81,6 +81,18 @@ function QueueCard({ item, isFirst }: { item: QueueItem; isFirst: boolean }) {
 
   const priorityLabel = item.status === "priority" ? "P1" : null;
   const isLive = item.status === "called" || isFirst;
+
+  const fetchQueue = useAppStore((s) => s.fetchQueue);
+  const fetchDoctors = useAppStore((s) => s.fetchDoctors);
+  const fetchEmergencies = useAppStore((s) => s.fetchEmergencies);
+  const fetchReports = useAppStore((s) => s.fetchReports);
+
+  React.useEffect(() => {
+    fetchDoctors && fetchDoctors();
+    fetchEmergencies && fetchEmergencies();
+    fetchQueue && fetchQueue("c4a78fcd-263d-4fcd-9347-ec8834e4f565");
+    fetchReports && fetchReports();
+  }, [fetchQueue, fetchDoctors, fetchEmergencies, fetchReports]);
 
   return (
     <motion.div
@@ -244,10 +256,10 @@ function QueueCard({ item, isFirst }: { item: QueueItem; isFirst: boolean }) {
 }
 
 export function RealtimePatientQueueWidget() {
-  const liveQueue = useRealtimeSimulatorStore((s) => s.liveQueue);
-  const liveDoctors = useRealtimeSimulatorStore((s) => s.liveDoctors);
-  const liveEmergencies = useRealtimeSimulatorStore((s) => s.liveEmergencies);
-  const tickMs = useRealtimeSimulatorStore((s) => s.config.tickMs);
+  const liveQueue = useAppStore((s) => s.liveQueue);
+  const liveDoctors = useAppStore((s) => s.liveDoctors);
+  const liveEmergencies = useAppStore((s) => s.liveEmergencies);
+  const tickMs = 1000;
   const now = useLiveClockTick();
 
   const criticalEmergencies = useMemo(

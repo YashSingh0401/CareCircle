@@ -6,7 +6,7 @@ genai.configure(api_key=settings.gemini_api_key)
 
 class ReportAnalyzer:
     def __init__(self):
-        self.model = genai.GenerativeModel('gemini-1.5-flash')
+        self.model = genai.GenerativeModel('gemini-flash-latest')
 
     async def analyze_report(self, report_text: str, record_type: str = "lab_report") -> dict:
         prompt = f"""You are a medical report explainer for Indian patients. Analyze this {record_type} and respond in this EXACT JSON format:

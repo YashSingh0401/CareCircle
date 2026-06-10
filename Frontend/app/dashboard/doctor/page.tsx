@@ -27,7 +27,7 @@ import {
   Database,
 } from "lucide-react";
 import { MotionCard, MotionPage, MotionPulseDot, MotionStagger, MotionStaggerItem } from "@/components/motion/carecircle-motion";
-import { useRealtimeSimulatorStore } from "@/lib/realtime/realtimeSimulatorStore";
+import { useAppStore } from "@/lib/store";
 
 function statusTone(state: string) {
   if (state === "available") return "border-emerald-400/20 bg-emerald-400/10 text-emerald-300";
@@ -49,12 +49,12 @@ function feedTone(tone?: string) {
 }
 
 export default function DoctorDashboardPage() {
-  const liveQueue = useRealtimeSimulatorStore((s) => s.liveQueue);
-  const liveDoctors = useRealtimeSimulatorStore((s) => s.liveDoctors);
-  const liveEmergencies = useRealtimeSimulatorStore((s) => s.liveEmergencies);
-  const feedItems = useRealtimeSimulatorStore((s) => s.feedItems);
-  const toastQueue = useRealtimeSimulatorStore((s) => s.toastQueue);
-  const reports = useRealtimeSimulatorStore((s) => s.reports);
+  const liveQueue = useAppStore((s) => s.liveQueue);
+  const liveDoctors = useAppStore((s) => s.liveDoctors);
+  const liveEmergencies = useAppStore((s) => s.liveEmergencies);
+  const feedItems = useAppStore((s) => s.feedItems);
+  const toastQueue = useAppStore((s) => s.toastQueue);
+  const reports = useAppStore((s) => s.reports);
 
   // Patient clinical ledger states
   const [searchId, setSearchId] = useState("P-948271");
@@ -99,6 +99,18 @@ export default function DoctorDashboardPage() {
   const recentFeed = feedItems.slice(0, 5);
 
   const scrollHintRef = useRef<HTMLDivElement | null>(null);
+
+  const fetchQueue = useAppStore((s) => s.fetchQueue);
+  const fetchDoctors = useAppStore((s) => s.fetchDoctors);
+  const fetchEmergencies = useAppStore((s) => s.fetchEmergencies);
+  const fetchReports = useAppStore((s) => s.fetchReports);
+
+  React.useEffect(() => {
+    fetchDoctors && fetchDoctors();
+    fetchEmergencies && fetchEmergencies();
+    fetchQueue && fetchQueue("c4a78fcd-263d-4fcd-9347-ec8834e4f565");
+    fetchReports && fetchReports();
+  }, [fetchQueue, fetchDoctors, fetchEmergencies, fetchReports]);
 
   return (
     <MotionPage className="min-h-screen bg-black text-white">

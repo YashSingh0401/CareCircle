@@ -24,7 +24,7 @@ Rules you MUST follow:
 
 class MedicalChatbot:
     def __init__(self):
-        self.model = genai.GenerativeModel('gemini-1.5-flash')
+        self.model = genai.GenerativeModel('gemini-flash-latest')
 
     async def get_response(self, message: str, session_id: str, user_id: str) -> dict:
         try:

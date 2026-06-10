@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { Activity, Building2, ChevronRight, Database, Fingerprint, ShieldAlert, Sparkles, Users } from "lucide-react";
 import { MotionCard, MotionPage, MotionStagger, MotionStaggerItem } from "@/components/motion/carecircle-motion";
+import { DevLoginButton } from "@/components/DevLoginButton";
 
 const portals = [
   {
@@ -104,9 +105,18 @@ export default function LoginPage() {
             })}
           </MotionStaggerItem>
 
-          <MotionStaggerItem className="mx-auto mt-8 max-w-2xl">
+          <MotionStaggerItem className="mx-auto mt-8 max-w-2xl flex flex-col items-center gap-4">
             <div className="rounded-[1.75rem] border border-white/10 bg-white/5 p-5 text-center text-sm leading-6 text-white/62 backdrop-blur-2xl sm:p-6">
               Built for a premium healthcare startup experience with glassmorphism, live telemetry styling, and mobile-first interaction targets.
+            </div>
+            
+            {/* DEV LOGIN BYPASS */}
+            <div className="mt-8 rounded-xl border border-red-500/30 bg-red-500/10 p-6 text-center backdrop-blur-md">
+              <h3 className="text-lg font-bold text-red-400 mb-2">Developer Login Bypass</h3>
+              <p className="text-sm text-red-200/70 mb-4 max-w-md">
+                Supabase email rate limits are currently exhausted. Click here to instantly log in as an Admin using a locally generated developer JWT token.
+              </p>
+              <DevLoginButton />
             </div>
           </MotionStaggerItem>
         </div>

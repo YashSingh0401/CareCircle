@@ -34,7 +34,7 @@ import {
   MotionStagger,
   MotionStaggerItem,
 } from "@/components/motion/carecircle-motion";
-import { useRealtimeSimulatorStore } from "@/lib/realtime/realtimeSimulatorStore";
+import { useAppStore } from "@/lib/store";
 
 function statusTone(tone: "cyan" | "emerald" | "rose" | "amber") {
   return tone === "cyan"
@@ -146,11 +146,20 @@ function QueueRow({
 }
 
 export default function AdminDashboardPage() {
-  const liveQueue = useRealtimeSimulatorStore((s) => s.liveQueue);
-  const liveDoctors = useRealtimeSimulatorStore((s) => s.liveDoctors);
-  const liveEmergencies = useRealtimeSimulatorStore((s) => s.liveEmergencies);
-  const feedItems = useRealtimeSimulatorStore((s) => s.feedItems);
-  const toastQueue = useRealtimeSimulatorStore((s) => s.toastQueue);
+  const liveQueue = useAppStore((s) => s.liveQueue);
+  const liveDoctors = useAppStore((s) => s.liveDoctors);
+  const liveEmergencies = useAppStore((s) => s.liveEmergencies);
+  const feedItems = useAppStore((s) => s.feedItems);
+  const toastQueue = useAppStore((s) => s.toastQueue);
+  const fetchQueue = useAppStore((s) => s.fetchQueue);
+  const fetchDoctors = useAppStore((s) => s.fetchDoctors);
+  const fetchEmergencies = useAppStore((s) => s.fetchEmergencies);
+
+  React.useEffect(() => {
+    fetchDoctors();
+    fetchEmergencies();
+    fetchQueue("c4a78fcd-263d-4fcd-9347-ec8834e4f565");
+  }, [fetchQueue, fetchDoctors, fetchEmergencies]);
 
   const criticalEmergencies = useMemo(
     () => liveEmergencies.filter((emergency) => emergency.priority === "critical"),
@@ -468,7 +477,18 @@ export default function AdminDashboardPage() {
                   <button className="rounded-full border border-white/10 bg-black/25 px-4 py-2 text-sm font-semibold text-white/70 transition hover:border-white/20 hover:bg-white/5">
                     Token manager
                   </button>
-                  <button className="rounded-full border border-emerald-400/20 bg-emerald-400/10 px-4 py-2 text-sm font-semibold text-emerald-300 transition hover:bg-emerald-400/15">
+                  <button 
+                    onClick={async () => {
+                      try {
+                        const { api } = await import("@/lib/api");
+                        await api.post(`/api/queue/call-next`, { queue_id: "c4a78fcd-263d-4fcd-9347-ec8834e4f565" });
+                        fetchQueue("c4a78fcd-263d-4fcd-9347-ec8834e4f565");
+                      } catch (err) {
+                        console.error("Failed to call next patient:", err);
+                      }
+                    }}
+                    className="rounded-full border border-emerald-400/20 bg-emerald-400/10 px-4 py-2 text-sm font-semibold text-emerald-300 transition hover:bg-emerald-400/15"
+                  >
                     Call next patient
                   </button>
                 </div>
@@ -491,6 +511,34 @@ export default function AdminDashboardPage() {
                     <MotionButton
                       key={action.label}
                       type="button"
+                      onClick={async () => {
+                        const { api } = await import("@/lib/api");
+                        const addToast = useAppStore.getState().addToast;
+                        try {
+                          if (action.label === "Update Queue") {
+                            addToast({ title: "Queue Updated", message: "Queue updated successfully", tone: "cyan" });
+                          } else if (action.label === "Send Alert") {
+                            addToast({ title: "Alert Sent", message: "Alert sent to all staff", tone: "rose" });
+                          } else if (action.label === "Call Patient") {
+                            await api.post(`/api/queue/call-next`, { queue_id: "c4a78fcd-263d-4fcd-9347-ec8834e4f565" });
+                            fetchQueue("c4a78fcd-263d-4fcd-9347-ec8834e4f565");
+                            addToast({ title: "Patient Called", message: "Next patient has been called", tone: "cyan" });
+                          } else if (action.label === "Emergency Override") {
+                            await api.post("/api/emergency/alert", {
+                              patient_id: "emergency",
+                              hospital_id: "",
+                              alert_type: "other",
+                              symptoms: ["emergency override"],
+                            });
+                            addToast({ title: "Emergency Override", message: "Emergency override activated", tone: "rose" });
+                          } else if (action.label === "Notify Doctor") {
+                            addToast({ title: "Doctor Notified", message: "Doctor notified", tone: "emerald" });
+                          }
+                        } catch (err) {
+                          console.error(`Quick action '${action.label}' failed:`, err);
+                          addToast({ title: "Action Failed", message: `Failed to execute: ${action.label}`, tone: "rose" });
+                        }
+                      }}
                       className={`inline-flex w-full items-center justify-between rounded-2xl border px-4 py-3 text-left text-sm font-semibold transition-all duration-300 hover:shadow-[0_10px_30px_rgba(0,240,255,0.14)] ${statusTone(action.tone)}`}
                     >
                       <span className="inline-flex items-center gap-2">

@@ -30,7 +30,7 @@ EMERGENCY_SYMPTOMS = [
 
 class SeverityPredictor:
     def __init__(self):
-        self.model = genai.GenerativeModel('gemini-1.5-flash')
+        self.model = genai.GenerativeModel('gemini-flash-latest')
 
     async def predict(self, symptoms: list[str]) -> dict:
         symptoms_text = ", ".join(symptoms).lower()

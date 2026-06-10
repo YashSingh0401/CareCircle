@@ -112,7 +112,9 @@ def step5_isolation_forest():
     section("Step 5/5 — Initializing Isolation Forest")
     t = time.time()
     # Import triggers auto-training
-    sys.path.insert(0, str(Path(__file__).parent.parent))
+    repo_root = Path(__file__).parent.parent
+    sys.path.insert(0, str(repo_root))
+    sys.path.insert(0, str(repo_root / "backend"))
     from backend.app.ml.isolation_forest.anomaly_detector import _train_default, MODEL_PATH
     _train_default()
     if MODEL_PATH.exists():

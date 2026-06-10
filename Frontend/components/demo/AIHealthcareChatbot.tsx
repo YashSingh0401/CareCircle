@@ -14,6 +14,8 @@ import {
   Loader2,
 } from "lucide-react";
 import { toast } from "sonner";
+import { api } from "@/lib/api";
+import { useAuthStore } from "@/lib/authStore";
 
 interface Message {
   id: string;
@@ -34,6 +36,8 @@ const suggestionChips = [
 ];
 
 export function AIHealthcareChatbot() {
+  const user = useAuthStore((s) => s.user);
+  const sessionIdRef = useRef(Date.now().toString());
   const [isOpen, setIsOpen] = useState(false);
   const [inputText, setInputText] = useState("");
   const [isTyping, setIsTyping] = useState(false);
@@ -164,28 +168,24 @@ export function AIHealthcareChatbot() {
     setIsTyping(true);
 
     try {
-      // Connect to Python chatbot backend
-      const response = await fetch("http://localhost:5000/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: textToSend }),
+      // Connect to FastAPI assistant backend
+      const response = await api.post("/api/assistant/chat", {
+        message: textToSend,
+        session_id: sessionIdRef.current,
+        user_id: user?.id || "anonymous",
       });
 
-      if (response.ok) {
-        const data = await response.json();
-        setMessages((prev) => [
-          ...prev,
-          {
-            id: Math.random().toString(),
-            text: data.reply,
-            sender: "bot",
-            timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-            type: data.type || "normal"
-          }
-        ]);
-      } else {
-        throw new Error("API Connection Failed");
-      }
+      const data = response.data;
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: Math.random().toString(),
+          text: data.response || data.reply,
+          sender: "bot",
+          timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+          type: data.type || "normal"
+        }
+      ]);
     } catch (err) {
       // Fallback NLP intent classification
       setTimeout(() => {

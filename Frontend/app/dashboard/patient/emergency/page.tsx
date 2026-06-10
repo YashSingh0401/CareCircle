@@ -4,6 +4,8 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { toast } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
+import { api } from "@/lib/api";
+import { useAuthStore } from "@/lib/authStore";
 
 import {
   ArrowLeft,
@@ -60,6 +62,13 @@ export default function EmergencyAssistancePage() {
   const [selectedSymptoms, setSelectedSymptoms] = useState<string[]>([]);
   const [dispatchActive, setDispatchActive] = useState(false);
   const [countdown, setCountdown] = useState(45);
+  const [alertLoading, setAlertLoading] = useState(false);
+  const [alertResult, setAlertResult] = useState<{
+    alert_id: string;
+    severity_level: number;
+    seek_emergency: boolean;
+    message: string;
+  } | null>(null);
 
   useEffect(() => {
     if (!dispatchActive) return;
@@ -90,14 +99,34 @@ export default function EmergencyAssistancePage() {
     );
   }
 
-  function dispatchDemoSos() {
+  async function dispatchDemoSos() {
     setCountdown(45);
     setDispatchActive(true);
-    toast.error("Emergency dispatch started", {
-      description: selectedSymptoms.length
-        ? `Symptoms attached: ${selectedSymptoms.join(", ")}.`
-        : "Frontend demo alert sent without selected symptoms.",
-    });
+    setAlertLoading(true);
+    try {
+      const patientId = useAuthStore.getState().user?.id || "patient-123";
+      const res = await api.post("/api/emergency/alert", {
+        patient_id: patientId,
+        alert_type: "other",
+        symptoms: selectedSymptoms,
+        description: selectedSymptoms.length
+          ? `Emergency symptoms: ${selectedSymptoms.join(", ")}`
+          : "Emergency SOS triggered without specific symptoms",
+      });
+      setAlertResult(res.data);
+      toast.error("Emergency dispatch started", {
+        description: res.data.message || `Severity level: ${res.data.severity_level}`,
+      });
+    } catch (err) {
+      console.error("Emergency alert failed", err);
+      toast.error("Emergency dispatch started (offline mode)", {
+        description: selectedSymptoms.length
+          ? `Symptoms attached: ${selectedSymptoms.join(", ")}.`
+          : "Alert sent without selected symptoms.",
+      });
+    } finally {
+      setAlertLoading(false);
+    }
   }
 
   return (
@@ -261,13 +290,22 @@ export default function EmergencyAssistancePage() {
               <div className="space-y-3">
                 <div className="rounded-[22px] border border-cyan-400/20 bg-cyan-400/10 p-4">
                   <div className="text-sm font-semibold uppercase tracking-[0.16em] text-cyan-300">Computed severity</div>
-                  <div className="mt-1 text-xl font-black text-white">{severity}</div>
+                  <div className="mt-1 text-xl font-black text-white">
+                    {alertResult ? `Level ${alertResult.severity_level}` : severity}
+                  </div>
                   <div className="mt-2 text-sm leading-6 text-white/65">
-                    {selectedSymptoms.length
-                      ? `${selectedSymptoms.length} symptom signal(s) attached to the demo dispatch.`
-                      : "Select symptoms to update the frontend triage model."}
+                    {alertResult
+                      ? alertResult.message
+                      : selectedSymptoms.length
+                        ? `${selectedSymptoms.length} symptom signal(s) attached to the demo dispatch.`
+                        : "Select symptoms to update the frontend triage model."}
                   </div>
                 </div>
+                {alertResult?.seek_emergency && (
+                  <div className="rounded-[22px] border border-rose-400/30 bg-rose-400/15 p-4 text-center animate-pulse">
+                    <div className="text-sm font-bold text-rose-300">⚠️ SEEK EMERGENCY CARE IMMEDIATELY</div>
+                  </div>
+                )}
                 <div className="rounded-[22px] border border-violet-400/20 bg-violet-400/10 p-4">
                   <div className="text-sm font-semibold uppercase tracking-[0.16em] text-violet-300">Assigned room</div>
                   <div className="mt-1 text-xl font-black text-white">{assignedRoom}</div>

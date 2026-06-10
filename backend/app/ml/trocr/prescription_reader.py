@@ -68,7 +68,7 @@ async def parse_prescription(image_bytes: bytes, mime_type: str = "image/jpeg") 
         api_key = os.getenv("GEMINI_API_KEY", "")
         if api_key:
             genai.configure(api_key=api_key)
-            model = genai.GenerativeModel("gemini-1.5-flash")
+            model = genai.GenerativeModel("gemini-flash-latest")
             prompt = f"""Parse this prescription OCR text into structured JSON. Return ONLY valid JSON:
 {{
   "doctor_name": "name or null",

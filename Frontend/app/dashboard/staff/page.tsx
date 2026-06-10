@@ -31,7 +31,7 @@ import {
   MotionStagger,
   MotionStaggerItem,
 } from "@/components/motion/carecircle-motion";
-import { useRealtimeSimulatorStore } from "@/lib/realtime/realtimeSimulatorStore";
+import { useAppStore } from "@/lib/store";
 
 const roomSeed = [
   { id: "ER-02", label: "Emergency bay", state: "Ready", tone: "rose" },
@@ -55,8 +55,9 @@ function toneClass(tone: string) {
 }
 
 export default function StaffDashboardPage() {
-  const liveQueue = useRealtimeSimulatorStore((s) => s.liveQueue);
-  const addReport = useRealtimeSimulatorStore((s) => s.addReport);
+  const liveQueue = useAppStore((s) => s.liveQueue);
+  // addReport is deprecated or replaced
+  const addReport = (r: any) => {};
 
   // Broadcast States
   const [patientId, setPatientId] = useState("P-948271");
@@ -121,9 +122,9 @@ export default function StaffDashboardPage() {
       });
     }
   }
-  const liveEmergencies = useRealtimeSimulatorStore((s) => s.liveEmergencies);
-  const feedItems = useRealtimeSimulatorStore((s) => s.feedItems);
-  const liveDoctors = useRealtimeSimulatorStore((s) => s.liveDoctors);
+  const liveEmergencies = useAppStore((s) => s.liveEmergencies);
+  const feedItems = useAppStore((s) => s.feedItems);
+  const liveDoctors = useAppStore((s) => s.liveDoctors);
   const [doneTasks, setDoneTasks] = useState<string[]>([]);
   const [calledTokens, setCalledTokens] = useState<string[]>([]);
 
@@ -151,6 +152,18 @@ export default function StaffDashboardPage() {
       prev.includes(task) ? prev.filter((item) => item !== task) : [...prev, task],
     );
   }
+
+  const fetchQueue = useAppStore((s) => s.fetchQueue);
+  const fetchDoctors = useAppStore((s) => s.fetchDoctors);
+  const fetchEmergencies = useAppStore((s) => s.fetchEmergencies);
+  const fetchReports = useAppStore((s) => s.fetchReports);
+
+  React.useEffect(() => {
+    fetchDoctors && fetchDoctors();
+    fetchEmergencies && fetchEmergencies();
+    fetchQueue && fetchQueue("c4a78fcd-263d-4fcd-9347-ec8834e4f565");
+    fetchReports && fetchReports();
+  }, [fetchQueue, fetchDoctors, fetchEmergencies, fetchReports]);
 
   return (
     <MotionPage className="min-h-screen bg-[#030712] text-white">

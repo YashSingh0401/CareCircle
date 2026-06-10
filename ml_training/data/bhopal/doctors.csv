@@ -1,0 +1,151 @@
+doctor_id,name,specialization,qualification,experience_years,hospital_name,hospital_type,hospital_area,hospital_lat,hospital_lon,consultation_fee,rating,total_reviews,is_available,avg_consultation_minutes,morning_slots,evening_slots,accepts_insurance,languages
+DOC0001,Dr. Vikram Singh,Orthopedist,"MBBS, MS (Orthopaedics)",19,AIIMS Bhopal,government,Saket Nagar,23.1993,77.3149,400,4.0,738,True,15,17,14,False,"Hindi, English"
+DOC0002,Dr. Sarla Joshi,General Physician,"MBBS, MD (Internal Medicine)",25,AIIMS Bhopal,government,Saket Nagar,23.1993,77.3149,150,4.2,304,True,18,11,6,True,Hindi
+DOC0003,Dr. Suresh Agarwal,Gastroenterologist,"MBBS, MD, DM (Gastroenterology)",22,AIIMS Bhopal,government,Saket Nagar,23.1993,77.3149,200,4.4,407,False,17,20,14,True,Hindi
+DOC0004,Dr. Shweta Patel,Psychiatrist,"MBBS, MD (Psychiatry)",25,AIIMS Bhopal,government,Saket Nagar,23.1993,77.3149,150,4.0,697,True,17,11,8,True,Hindi
+DOC0005,Dr. Sanjay Tripathi,Rheumatologist,"MBBS, MD, DM (Rheumatology)",23,AIIMS Bhopal,government,Saket Nagar,23.1993,77.3149,350,4.5,706,True,10,19,15,False,"Hindi, English, Urdu"
+DOC0006,Dr. Deepak Joshi,Neurologist,"MBBS, DNB (Neurology)",17,AIIMS Bhopal,government,Saket Nagar,23.1993,77.3149,450,4.6,675,True,15,20,10,True,"Hindi, English"
+DOC0007,Dr. Deepak Verma,Nephrologist,"MBBS, MD, DM (Nephrology)",28,AIIMS Bhopal,government,Saket Nagar,23.1993,77.3149,250,4.4,600,True,18,13,15,True,"Hindi, English, Urdu"
+DOC0008,Dr. Pooja Tiwari,Cardiologist,"MBBS, MD, DM (Cardiology)",11,AIIMS Bhopal,government,Saket Nagar,23.1993,77.3149,400,4.6,782,True,16,19,11,True,Hindi
+DOC0009,Dr. Mahesh Singh,Endocrinologist,"MBBS, MD, DM (Endocrinology)",7,AIIMS Bhopal,government,Saket Nagar,23.1993,77.3149,300,4.5,132,True,13,20,11,True,Hindi
+DOC0010,Dr. Geeta Kulkarni,Surgeon,"MBBS, DNB (Surgery)",17,AIIMS Bhopal,government,Saket Nagar,23.1993,77.3149,600,4.5,586,True,8,20,6,True,"Hindi, English, Urdu"
+DOC0011,Dr. Sarla Yadav,Ophthalmologist,"MBBS, DO",27,AIIMS Bhopal,government,Saket Nagar,23.1993,77.3149,300,4.6,484,False,16,18,7,True,"Hindi, English"
+DOC0012,Dr. Suresh Pandey,Pediatrician,"MBBS, MD (Pediatrics)",29,AIIMS Bhopal,government,Saket Nagar,23.1993,77.3149,300,4.6,176,True,13,18,13,True,"Hindi, English, Urdu"
+DOC0013,Dr. Kavita Shukla,Radiologist,"MBBS, DMRD",3,AIIMS Bhopal,government,Saket Nagar,23.1993,77.3149,200,4.8,334,True,15,19,6,False,Hindi
+DOC0014,Dr. Usha Gupta,Urologist,"MBBS, MS, MCh (Urology)",27,AIIMS Bhopal,government,Saket Nagar,23.1993,77.3149,300,4.0,151,True,25,12,9,True,"Hindi, English, Urdu"
+DOC0015,Dr. Ashok Patel,ENT Specialist,"MBBS, MS (ENT)",32,AIIMS Bhopal,government,Saket Nagar,23.1993,77.3149,300,4.3,707,True,22,18,12,False,"Hindi, English"
+DOC0016,Dr. Amit Chaturvedi,Neurologist,"MBBS, DNB (Neurology)",10,Hamidia Hospital,government,Royal Market,23.2647,77.4098,400,3.4,239,True,23,13,12,True,"Hindi, English"
+DOC0017,Dr. Priya Mishra,Endocrinologist,"MBBS, MD, DM (Endocrinology)",24,Hamidia Hospital,government,Royal Market,23.2647,77.4098,250,3.4,766,False,11,10,11,True,"Hindi, English"
+DOC0018,Dr. Deepak Patel,General Physician,"MBBS, MD (Internal Medicine)",9,Hamidia Hospital,government,Royal Market,23.2647,77.4098,200,3.9,163,True,16,17,8,True,"Hindi, English"
+DOC0019,Dr. Pooja Dwivedi,Psychiatrist,"MBBS, MD (Psychiatry)",6,Hamidia Hospital,government,Royal Market,23.2647,77.4098,150,4.4,262,True,23,17,8,True,"Hindi, English"
+DOC0020,Dr. Sunita Saxena,Rheumatologist,"MBBS, MD, DM (Rheumatology)",3,Hamidia Hospital,government,Royal Market,23.2647,77.4098,250,3.6,485,True,25,20,12,False,Hindi
+DOC0021,Dr. Vikram Verma,Surgeon,"MBBS, MS (General Surgery)",21,Hamidia Hospital,government,Royal Market,23.2647,77.4098,650,3.7,618,True,24,12,5,True,"Hindi, English"
+DOC0022,Dr. Suresh Joshi,Cardiologist,"MBBS, MD, DM (Cardiology)",5,Hamidia Hospital,government,Royal Market,23.2647,77.4098,500,3.6,711,True,20,11,14,False,"Hindi, English, Urdu"
+DOC0023,Dr. Sunil Kulkarni,Nephrologist,"MBBS, MD, DM (Nephrology)",5,Hamidia Hospital,government,Royal Market,23.2647,77.4098,250,3.9,753,True,16,16,7,True,Hindi
+DOC0024,Dr. Pooja Soni,Radiologist,"MBBS, MD (Radiology)",32,Hamidia Hospital,government,Royal Market,23.2647,77.4098,350,3.6,29,True,11,11,13,False,Hindi
+DOC0025,Dr. Neha Agarwal,Oncologist,"MBBS, MD, DM (Medical Oncology)",31,Hamidia Hospital,government,Royal Market,23.2647,77.4098,550,3.6,576,True,24,10,15,True,Hindi
+DOC0026,Dr. Narendra Mishra,Orthopedist,"MBBS, DNB (Orthopaedics)",31,Hamidia Hospital,government,Royal Market,23.2647,77.4098,300,3.8,138,True,25,12,9,False,"Hindi, English"
+DOC0027,Dr. Meena Soni,ENT Specialist,"MBBS, DLO",9,Hamidia Hospital,government,Royal Market,23.2647,77.4098,300,3.5,72,False,21,14,5,False,"Hindi, English"
+DOC0028,Dr. Rekha Yadav,Ophthalmologist,"MBBS, DO",8,Hamidia Hospital,government,Royal Market,23.2647,77.4098,350,3.7,584,True,25,10,6,False,"Hindi, English, Urdu"
+DOC0029,Dr. Neha Dwivedi,Pediatrician,"MBBS, DCH",4,Hamidia Hospital,government,Royal Market,23.2647,77.4098,350,3.6,150,False,19,10,10,False,"Hindi, English"
+DOC0030,Dr. Narendra Mishra,Anesthesiologist,"MBBS, DA",14,Hamidia Hospital,government,Royal Market,23.2647,77.4098,350,3.6,655,True,15,12,7,True,"Hindi, English"
+DOC0031,Dr. Mahesh Pandey,Gynecologist,"MBBS, MS (OBG)",29,Bansal Hospital,private,Shahpura,23.2096,77.4651,950,4.3,428,True,10,14,10,True,Hindi
+DOC0032,Dr. Narendra Dwivedi,Endocrinologist,"MBBS, MD, DM (Endocrinology)",13,Bansal Hospital,private,Shahpura,23.2096,77.4651,1000,4.6,138,True,16,12,14,True,Hindi
+DOC0033,Dr. Sunil Mishra,ENT Specialist,"MBBS, DLO",22,Bansal Hospital,private,Shahpura,23.2096,77.4651,850,4.2,640,True,11,16,14,False,"Hindi, English"
+DOC0034,Dr. Meena Dubey,Psychiatrist,"MBBS, MD (Psychiatry)",3,Bansal Hospital,private,Shahpura,23.2096,77.4651,900,3.9,392,True,18,19,10,True,"Hindi, English"
+DOC0035,Dr. Pramod Pandey,Gastroenterologist,"MBBS, MD, DM (Gastroenterology)",19,Bansal Hospital,private,Shahpura,23.2096,77.4651,850,4.0,587,False,21,20,11,True,"Hindi, English"
+DOC0036,Dr. Arun Bajpai,Neurologist,"MBBS, MD, DM (Neurology)",12,Bansal Hospital,private,Shahpura,23.2096,77.4651,1650,4.6,331,True,21,19,14,True,Hindi
+DOC0037,Dr. Pooja Tripathi,Ophthalmologist,"MBBS, DO",24,Bansal Hospital,private,Shahpura,23.2096,77.4651,800,4.4,773,True,10,14,13,True,"Hindi, English, Urdu"
+DOC0038,Dr. Kavita Gupta,Nephrologist,"MBBS, MD, DM (Nephrology)",29,Bansal Hospital,private,Shahpura,23.2096,77.4651,1000,3.5,708,True,14,12,5,False,Hindi
+DOC0039,Dr. Arun Gupta,Cardiologist,"MBBS, MD, DM (Cardiology)",17,Bansal Hospital,private,Shahpura,23.2096,77.4651,1650,4.1,429,True,8,11,11,False,"Hindi, English, Urdu"
+DOC0040,Dr. Anita Tripathi,Pediatrician,"MBBS, MD (Pediatrics)",4,Bansal Hospital,private,Shahpura,23.2096,77.4651,900,3.9,144,True,22,20,13,True,"Hindi, English, Urdu"
+DOC0041,Dr. Kavita Tripathi,General Physician,"MBBS, DNB",22,Bansal Hospital,private,Shahpura,23.2096,77.4651,550,4.4,581,True,13,17,12,False,"Hindi, English"
+DOC0042,Dr. Usha Yadav,Rheumatologist,"MBBS, MD, DM (Rheumatology)",27,Bansal Hospital,private,Shahpura,23.2096,77.4651,950,4.0,661,True,22,11,9,False,Hindi
+DOC0043,Dr. Kavita Dwivedi,Orthopedist,"MBBS, MS (Orthopaedics)",5,Bansal Hospital,private,Shahpura,23.2096,77.4651,1200,4.3,743,True,21,16,10,True,Hindi
+DOC0044,Dr. Sunil Patel,Surgeon,"MBBS, DNB (Surgery)",29,Bansal Hospital,private,Shahpura,23.2096,77.4651,2050,4.7,618,True,8,19,11,True,Hindi
+DOC0045,Dr. Ritu Saxena,Urologist,"MBBS, MS, MCh (Urology)",30,Bansal Hospital,private,Shahpura,23.2096,77.4651,1000,3.7,637,True,23,13,9,True,"Hindi, English"
+DOC0046,Dr. Neha Tripathi,Ophthalmologist,"MBBS, DO",8,Chirayu Medical College,private,Bairagarh,23.2741,77.334,750,3.9,408,True,22,15,10,True,Hindi
+DOC0047,Dr. Sanjay Dubey,Endocrinologist,"MBBS, MD, DM (Endocrinology)",11,Chirayu Medical College,private,Bairagarh,23.2741,77.334,950,3.5,73,True,19,13,15,False,"Hindi, English, Urdu"
+DOC0048,Dr. Sunil Sharma,Anesthesiologist,"MBBS, MD (Anaesthesiology)",10,Chirayu Medical College,private,Bairagarh,23.2741,77.334,800,4.1,656,True,12,17,15,False,"Hindi, English"
+DOC0049,Dr. Pooja Yadav,Gynecologist,"MBBS, MS (OBG)",27,Chirayu Medical College,private,Bairagarh,23.2741,77.334,850,3.4,755,False,13,14,6,True,Hindi
+DOC0050,Dr. Shweta Saxena,Oncologist,"MBBS, MD, DM (Medical Oncology)",15,Chirayu Medical College,private,Bairagarh,23.2741,77.334,2600,3.5,97,True,15,11,9,True,"Hindi, English, Urdu"
+DOC0051,Dr. Dinesh Mishra,Urologist,"MBBS, MS, MCh (Urology)",28,Chirayu Medical College,private,Bairagarh,23.2741,77.334,900,3.8,399,False,18,10,11,True,"Hindi, English"
+DOC0052,Dr. Ashok Agarwal,Neurologist,"MBBS, DNB (Neurology)",23,Chirayu Medical College,private,Bairagarh,23.2741,77.334,1800,4.3,744,True,13,18,15,False,"Hindi, English, Urdu"
+DOC0053,Dr. Sarla Shukla,Pulmonologist,"MBBS, DTCD",17,Chirayu Medical College,private,Bairagarh,23.2741,77.334,850,3.9,108,True,22,13,12,True,"Hindi, English, Urdu"
+DOC0054,Dr. Geeta Soni,Gastroenterologist,"MBBS, MD, DM (Gastroenterology)",3,Chirayu Medical College,private,Bairagarh,23.2741,77.334,900,4.2,206,True,19,14,10,False,"Hindi, English, Urdu"
+DOC0055,Dr. Meena Yadav,General Physician,"MBBS, DNB",20,Chirayu Medical College,private,Bairagarh,23.2741,77.334,350,4.1,757,True,25,13,12,True,Hindi
+DOC0056,Dr. Pooja Sharma,Pediatrician,"MBBS, MD (Pediatrics)",5,Chirayu Medical College,private,Bairagarh,23.2741,77.334,800,4.0,434,True,17,20,14,True,"Hindi, English, Urdu"
+DOC0057,Dr. Anita Agarwal,Radiologist,"MBBS, DMRD",16,Chirayu Medical College,private,Bairagarh,23.2741,77.334,950,3.8,333,True,11,13,10,False,"Hindi, English, Urdu"
+DOC0058,Dr. Sarla Joshi,Cardiologist,"MBBS, MD, DNB (Cardiology)",9,Chirayu Medical College,private,Bairagarh,23.2741,77.334,1600,4.3,303,True,24,19,9,True,"Hindi, English"
+DOC0059,Dr. Ritu Singh,Rheumatologist,"MBBS, MD, DM (Rheumatology)",14,Chirayu Medical College,private,Bairagarh,23.2741,77.334,800,4.4,300,False,9,18,9,True,"Hindi, English"
+DOC0060,Dr. Rekha Shukla,Orthopedist,"MBBS, MS (Orthopaedics)",6,Chirayu Medical College,private,Bairagarh,23.2741,77.334,1350,4.0,607,True,23,17,10,False,"Hindi, English"
+DOC0061,Dr. Ritu Gupta,Gastroenterologist,"MBBS, MD, DM (Gastroenterology)",10,People's Hospital,private,Bhanpur,23.1766,77.4425,800,3.7,251,True,20,17,12,False,"Hindi, English, Urdu"
+DOC0062,Dr. Ashok Pandey,Urologist,"MBBS, MS, MCh (Urology)",21,People's Hospital,private,Bhanpur,23.1766,77.4425,900,3.8,644,True,11,13,15,False,"Hindi, English, Urdu"
+DOC0063,Dr. Amit Joshi,Orthopedist,"MBBS, MS (Orthopaedics)",10,People's Hospital,private,Bhanpur,23.1766,77.4425,1200,4.3,725,True,17,10,8,False,Hindi
+DOC0064,Dr. Meena Tripathi,Neurologist,"MBBS, MD, DM (Neurology)",5,People's Hospital,private,Bhanpur,23.1766,77.4425,1700,4.4,290,True,14,16,6,True,"Hindi, English, Urdu"
+DOC0065,Dr. Neha Yadav,Ophthalmologist,"MBBS, MS (Ophthalmology)",29,People's Hospital,private,Bhanpur,23.1766,77.4425,800,4.6,629,True,17,17,6,True,Hindi
+DOC0066,Dr. Meena Saxena,Psychiatrist,"MBBS, DPM",11,People's Hospital,private,Bhanpur,23.1766,77.4425,900,4.3,468,False,9,16,10,True,"Hindi, English"
+DOC0067,Dr. Amit Singh,Cardiologist,"MBBS, MD, DM (Cardiology)",24,People's Hospital,private,Bhanpur,23.1766,77.4425,1750,4.5,295,True,13,17,13,True,Hindi
+DOC0068,Dr. Sunita Bajpai,Pulmonologist,"MBBS, DTCD",16,People's Hospital,private,Bhanpur,23.1766,77.4425,900,4.1,113,True,21,15,10,True,"Hindi, English"
+DOC0069,Dr. Kavita Dubey,Endocrinologist,"MBBS, MD, DM (Endocrinology)",25,People's Hospital,private,Bhanpur,23.1766,77.4425,900,3.9,798,True,22,11,10,False,"Hindi, English"
+DOC0070,Dr. Sarla Saxena,Nephrologist,"MBBS, MD, DM (Nephrology)",30,People's Hospital,private,Bhanpur,23.1766,77.4425,900,3.8,693,True,22,16,5,False,Hindi
+DOC0071,Dr. Arun Shukla,General Physician,MBBS,23,People's Hospital,private,Bhanpur,23.1766,77.4425,450,4.2,314,True,23,11,5,True,"Hindi, English, Urdu"
+DOC0072,Dr. Dinesh Singh,Rheumatologist,"MBBS, MD, DM (Rheumatology)",25,People's Hospital,private,Bhanpur,23.1766,77.4425,800,4.5,584,False,21,11,8,True,"Hindi, English"
+DOC0073,Dr. Pooja Mishra,Anesthesiologist,"MBBS, MD (Anaesthesiology)",23,People's Hospital,private,Bhanpur,23.1766,77.4425,950,3.6,541,True,21,17,12,False,"Hindi, English, Urdu"
+DOC0074,Dr. Neha Saxena,Pediatrician,"MBBS, MD (Pediatrics)",9,People's Hospital,private,Bhanpur,23.1766,77.4425,1000,4.1,91,True,21,15,13,False,"Hindi, English"
+DOC0075,Dr. Ritu Pandey,Dermatologist,"MBBS, DVD",29,People's Hospital,private,Bhanpur,23.1766,77.4425,900,4.3,515,True,25,18,11,True,Hindi
+DOC0076,Dr. Anita Bajpai,Pediatrician,"MBBS, MD (Pediatrics)",13,Bhopal Memorial Hospital,trust,Berasia Road,23.3052,77.3983,550,3.7,470,False,22,10,7,True,"Hindi, English, Urdu"
+DOC0077,Dr. Neha Gupta,Psychiatrist,"MBBS, DPM",18,Bhopal Memorial Hospital,trust,Berasia Road,23.3052,77.3983,550,3.7,685,False,18,20,13,True,Hindi
+DOC0078,Dr. Rekha Shukla,Ophthalmologist,"MBBS, MS (Ophthalmology)",30,Bhopal Memorial Hospital,trust,Berasia Road,23.3052,77.3983,500,4.3,652,False,17,13,6,True,"Hindi, English"
+DOC0079,Dr. Sarla Mishra,Radiologist,"MBBS, DMRD",17,Bhopal Memorial Hospital,trust,Berasia Road,23.3052,77.3983,400,4.0,77,True,19,16,7,False,Hindi
+DOC0080,Dr. Shweta Joshi,ENT Specialist,"MBBS, MS (ENT)",8,Bhopal Memorial Hospital,trust,Berasia Road,23.3052,77.3983,400,3.8,644,True,15,17,14,False,Hindi
+DOC0081,Dr. Rekha Yadav,General Physician,"MBBS, DNB",17,Bhopal Memorial Hospital,trust,Berasia Road,23.3052,77.3983,200,4.4,314,True,13,11,12,True,"Hindi, English, Urdu"
+DOC0082,Dr. Ritu Dubey,Gynecologist,"MBBS, MD (OBG)",25,Bhopal Memorial Hospital,trust,Berasia Road,23.3052,77.3983,400,3.9,329,True,20,17,6,False,"Hindi, English, Urdu"
+DOC0083,Dr. Mahesh Bajpai,Nephrologist,"MBBS, MD, DM (Nephrology)",12,Bhopal Memorial Hospital,trust,Berasia Road,23.3052,77.3983,550,4.5,425,True,9,19,12,True,Hindi
+DOC0084,Dr. Sarla Singh,Rheumatologist,"MBBS, MD, DM (Rheumatology)",22,Bhopal Memorial Hospital,trust,Berasia Road,23.3052,77.3983,550,4.0,244,True,16,20,15,True,"Hindi, English"
+DOC0085,Dr. Rekha Mishra,Anesthesiologist,"MBBS, MD (Anaesthesiology)",31,Bhopal Memorial Hospital,trust,Berasia Road,23.3052,77.3983,500,3.8,613,True,12,11,9,True,Hindi
+DOC0086,Dr. Sunita Patel,Endocrinologist,"MBBS, MD, DM (Endocrinology)",7,Bhopal Memorial Hospital,trust,Berasia Road,23.3052,77.3983,550,4.2,563,True,16,12,9,True,Hindi
+DOC0087,Dr. Dinesh Pandey,Neurologist,"MBBS, DNB (Neurology)",26,Bhopal Memorial Hospital,trust,Berasia Road,23.3052,77.3983,950,4.0,97,False,15,20,15,True,"Hindi, English, Urdu"
+DOC0088,Dr. Mahesh Gupta,Surgeon,"MBBS, MS (General Surgery)",28,Bhopal Memorial Hospital,trust,Berasia Road,23.3052,77.3983,1050,3.6,290,True,22,15,15,True,Hindi
+DOC0089,Dr. Shweta Saxena,Oncologist,"MBBS, MD, DM (Medical Oncology)",29,Bhopal Memorial Hospital,trust,Berasia Road,23.3052,77.3983,1300,4.1,45,True,25,15,14,False,"Hindi, English"
+DOC0090,Dr. Rekha Tripathi,Cardiologist,"MBBS, MD, DNB (Cardiology)",32,Bhopal Memorial Hospital,trust,Berasia Road,23.3052,77.3983,950,4.0,684,True,12,10,5,True,Hindi
+DOC0091,Dr. Usha Shukla,Orthopedist,"MBBS, DNB (Orthopaedics)",22,Gandhi Medical College,government,Sultania Road,23.2566,77.4039,350,4.1,474,True,15,15,6,True,Hindi
+DOC0092,Dr. Vinod Agarwal,Anesthesiologist,"MBBS, DA",4,Gandhi Medical College,government,Sultania Road,23.2566,77.4039,250,3.9,214,True,22,11,15,False,"Hindi, English, Urdu"
+DOC0093,Dr. Arun Sharma,Psychiatrist,"MBBS, DPM",4,Gandhi Medical College,government,Sultania Road,23.2566,77.4039,350,3.8,598,True,25,13,14,False,"Hindi, English"
+DOC0094,Dr. Kavita Tiwari,Dermatologist,"MBBS, MD (Dermatology)",28,Gandhi Medical College,government,Sultania Road,23.2566,77.4039,400,4.0,303,True,12,12,13,False,"Hindi, English"
+DOC0095,Dr. Priya Sharma,Ophthalmologist,"MBBS, DO",7,Gandhi Medical College,government,Sultania Road,23.2566,77.4039,150,3.9,351,False,16,10,7,True,"Hindi, English, Urdu"
+DOC0096,Dr. Priya Gupta,Surgeon,"MBBS, DNB (Surgery)",18,Gandhi Medical College,government,Sultania Road,23.2566,77.4039,550,3.6,545,True,22,18,8,True,"Hindi, English"
+DOC0097,Dr. Pramod Chaturvedi,Gynecologist,"MBBS, DGO",12,Gandhi Medical College,government,Sultania Road,23.2566,77.4039,250,3.9,510,True,21,20,6,True,Hindi
+DOC0098,Dr. Amit Gupta,Endocrinologist,"MBBS, MD, DM (Endocrinology)",13,Gandhi Medical College,government,Sultania Road,23.2566,77.4039,300,3.8,87,False,25,15,11,True,"Hindi, English, Urdu"
+DOC0099,Dr. Ritu Tripathi,Nephrologist,"MBBS, MD, DM (Nephrology)",19,Gandhi Medical College,government,Sultania Road,23.2566,77.4039,300,4.2,690,True,25,13,11,True,"Hindi, English"
+DOC0100,Dr. Ashok Soni,Gastroenterologist,"MBBS, MD, DM (Gastroenterology)",29,Gandhi Medical College,government,Sultania Road,23.2566,77.4039,250,4.1,445,True,18,16,10,True,Hindi
+DOC0101,Dr. Neha Shukla,Pediatrician,"MBBS, MD (Pediatrics)",5,Gandhi Medical College,government,Sultania Road,23.2566,77.4039,150,3.9,776,True,12,18,5,True,"Hindi, English, Urdu"
+DOC0102,Dr. Vinod Soni,Neurologist,"MBBS, DNB (Neurology)",24,Gandhi Medical College,government,Sultania Road,23.2566,77.4039,400,3.9,382,True,21,10,9,True,Hindi
+DOC0103,Dr. Priya Bajpai,Pulmonologist,"MBBS, MD (Respiratory Medicine)",19,Gandhi Medical College,government,Sultania Road,23.2566,77.4039,200,3.7,130,True,25,15,6,True,"Hindi, English, Urdu"
+DOC0104,Dr. Deepak Dubey,ENT Specialist,"MBBS, MS (ENT)",30,Gandhi Medical College,government,Sultania Road,23.2566,77.4039,300,3.6,643,True,16,10,7,False,Hindi
+DOC0105,Dr. Kavita Agarwal,General Physician,MBBS,3,Gandhi Medical College,government,Sultania Road,23.2566,77.4039,100,3.5,165,True,8,11,13,False,Hindi
+DOC0106,Dr. Sunil Gupta,Oncologist,"MBBS, MD, DM (Medical Oncology)",11,Narmada Hospital,private,Kolar Road,23.1634,77.4512,2450,3.8,517,True,21,14,8,True,"Hindi, English"
+DOC0107,Dr. Mahesh Dubey,Endocrinologist,"MBBS, MD, DM (Endocrinology)",6,Narmada Hospital,private,Kolar Road,23.1634,77.4512,800,3.6,245,True,9,10,8,True,"Hindi, English"
+DOC0108,Dr. Sarla Tiwari,Gynecologist,"MBBS, MD (OBG)",27,Narmada Hospital,private,Kolar Road,23.1634,77.4512,800,3.9,355,False,23,16,7,False,"Hindi, English, Urdu"
+DOC0109,Dr. Meena Singh,Nephrologist,"MBBS, MD, DM (Nephrology)",19,Narmada Hospital,private,Kolar Road,23.1634,77.4512,900,4.4,63,True,22,11,10,True,"Hindi, English, Urdu"
+DOC0110,Dr. Geeta Dubey,Pulmonologist,"MBBS, DTCD",12,Narmada Hospital,private,Kolar Road,23.1634,77.4512,800,4.2,41,True,13,19,12,True,Hindi
+DOC0111,Dr. Amit Dubey,Rheumatologist,"MBBS, MD, DM (Rheumatology)",30,Narmada Hospital,private,Kolar Road,23.1634,77.4512,800,3.6,100,True,17,15,8,True,"Hindi, English"
+DOC0112,Dr. Amit Chaturvedi,Surgeon,"MBBS, MS (General Surgery)",23,Narmada Hospital,private,Kolar Road,23.1634,77.4512,2000,4.0,377,True,12,13,6,False,"Hindi, English"
+DOC0113,Dr. Sunita Kulkarni,Ophthalmologist,"MBBS, MS (Ophthalmology)",7,Narmada Hospital,private,Kolar Road,23.1634,77.4512,950,4.1,525,True,22,20,14,True,"Hindi, English, Urdu"
+DOC0114,Dr. Kavita Soni,Urologist,"MBBS, MS, MCh (Urology)",7,Narmada Hospital,private,Kolar Road,23.1634,77.4512,850,4.4,500,True,17,14,14,False,"Hindi, English, Urdu"
+DOC0115,Dr. Amit Pandey,Anesthesiologist,"MBBS, MD (Anaesthesiology)",17,Narmada Hospital,private,Kolar Road,23.1634,77.4512,850,4.4,98,True,10,19,14,True,Hindi
+DOC0116,Dr. Shweta Dwivedi,Cardiologist,"MBBS, MD, DM (Cardiology)",28,Narmada Hospital,private,Kolar Road,23.1634,77.4512,1750,4.1,480,True,14,15,14,True,"Hindi, English"
+DOC0117,Dr. Sunil Tripathi,General Physician,"MBBS, MD (Internal Medicine)",6,Narmada Hospital,private,Kolar Road,23.1634,77.4512,550,4.0,681,True,15,17,12,True,"Hindi, English, Urdu"
+DOC0118,Dr. Sunita Agarwal,Neurologist,"MBBS, DNB (Neurology)",14,Narmada Hospital,private,Kolar Road,23.1634,77.4512,1800,3.9,416,True,18,20,14,False,"Hindi, English, Urdu"
+DOC0119,Dr. Rekha Soni,Radiologist,"MBBS, MD (Radiology)",5,Narmada Hospital,private,Kolar Road,23.1634,77.4512,850,3.6,278,True,12,15,6,True,"Hindi, English"
+DOC0120,Dr. Mahesh Pandey,Dermatologist,"MBBS, DVD",23,Narmada Hospital,private,Kolar Road,23.1634,77.4512,950,3.8,152,True,10,14,13,True,Hindi
+DOC0121,Dr. Neha Gupta,Dermatologist,"MBBS, MD (Dermatology)",12,Spandan Hospital,private,Hoshangabad Road,23.2003,77.4801,950,3.4,776,True,9,20,10,True,"Hindi, English, Urdu"
+DOC0122,Dr. Neha Kulkarni,Rheumatologist,"MBBS, MD, DM (Rheumatology)",15,Spandan Hospital,private,Hoshangabad Road,23.2003,77.4801,800,3.8,205,True,13,17,5,True,"Hindi, English, Urdu"
+DOC0123,Dr. Pramod Singh,Neurologist,"MBBS, DNB (Neurology)",17,Spandan Hospital,private,Hoshangabad Road,23.2003,77.4801,1700,3.8,259,True,17,17,8,True,"Hindi, English, Urdu"
+DOC0124,Dr. Pooja Tripathi,ENT Specialist,"MBBS, DLO",27,Spandan Hospital,private,Hoshangabad Road,23.2003,77.4801,800,3.3,534,True,13,13,14,False,Hindi
+DOC0125,Dr. Sunil Shukla,Nephrologist,"MBBS, MD, DM (Nephrology)",30,Spandan Hospital,private,Hoshangabad Road,23.2003,77.4801,850,3.7,147,True,13,14,12,True,"Hindi, English"
+DOC0126,Dr. Usha Dubey,General Physician,MBBS,5,Spandan Hospital,private,Hoshangabad Road,23.2003,77.4801,600,3.4,481,True,8,16,5,True,Hindi
+DOC0127,Dr. Deepak Saxena,Gynecologist,"MBBS, MS (OBG)",5,Spandan Hospital,private,Hoshangabad Road,23.2003,77.4801,850,4.5,751,True,12,12,5,False,Hindi
+DOC0128,Dr. Meena Tiwari,Anesthesiologist,"MBBS, DA",27,Spandan Hospital,private,Hoshangabad Road,23.2003,77.4801,950,3.9,479,True,10,10,9,False,"Hindi, English"
+DOC0129,Dr. Vinod Kulkarni,Surgeon,"MBBS, MS (General Surgery)",19,Spandan Hospital,private,Hoshangabad Road,23.2003,77.4801,2050,3.8,144,False,21,20,14,True,"Hindi, English"
+DOC0130,Dr. Usha Shukla,Orthopedist,"MBBS, MS (Orthopaedics)",22,Spandan Hospital,private,Hoshangabad Road,23.2003,77.4801,1300,3.6,667,True,15,12,9,True,"Hindi, English, Urdu"
+DOC0131,Dr. Mahesh Singh,Radiologist,"MBBS, MD (Radiology)",21,Spandan Hospital,private,Hoshangabad Road,23.2003,77.4801,850,3.7,389,False,24,18,13,True,"Hindi, English, Urdu"
+DOC0132,Dr. Vinod Sharma,Psychiatrist,"MBBS, DPM",15,Spandan Hospital,private,Hoshangabad Road,23.2003,77.4801,950,3.7,64,True,19,14,5,True,"Hindi, English"
+DOC0133,Dr. Mahesh Singh,Endocrinologist,"MBBS, MD, DM (Endocrinology)",26,Spandan Hospital,private,Hoshangabad Road,23.2003,77.4801,900,3.9,360,False,19,18,10,True,"Hindi, English"
+DOC0134,Dr. Usha Tripathi,Cardiologist,"MBBS, MD, DM (Cardiology)",25,Spandan Hospital,private,Hoshangabad Road,23.2003,77.4801,1650,3.3,158,False,22,10,9,False,"Hindi, English"
+DOC0135,Dr. Sunil Soni,Pediatrician,"MBBS, DCH",32,Spandan Hospital,private,Hoshangabad Road,23.2003,77.4801,850,4.2,279,False,14,14,10,True,"Hindi, English"
+DOC0136,Dr. Mahesh Chaturvedi,Endocrinologist,"MBBS, MD, DM (Endocrinology)",11,Apollo Sage Hospital,private,Bawadia Kalan,23.245,77.356,950,4.3,764,True,21,19,7,True,Hindi
+DOC0137,Dr. Priya Gupta,Gastroenterologist,"MBBS, MD, DM (Gastroenterology)",13,Apollo Sage Hospital,private,Bawadia Kalan,23.245,77.356,900,4.2,456,True,22,15,12,False,Hindi
+DOC0138,Dr. Arun Dubey,Orthopedist,"MBBS, MS (Orthopaedics)",11,Apollo Sage Hospital,private,Bawadia Kalan,23.245,77.356,1300,4.7,96,True,20,15,13,True,"Hindi, English, Urdu"
+DOC0139,Dr. Sunita Sharma,Nephrologist,"MBBS, MD, DM (Nephrology)",7,Apollo Sage Hospital,private,Bawadia Kalan,23.245,77.356,950,4.4,680,True,20,19,5,True,"Hindi, English, Urdu"
+DOC0140,Dr. Pooja Agarwal,ENT Specialist,"MBBS, MS (ENT)",14,Apollo Sage Hospital,private,Bawadia Kalan,23.245,77.356,850,4.3,607,False,19,16,10,True,"Hindi, English"
+DOC0141,Dr. Priya Sharma,Oncologist,"MBBS, MD, DM (Medical Oncology)",26,Apollo Sage Hospital,private,Bawadia Kalan,23.245,77.356,2400,3.6,140,True,16,17,8,True,Hindi
+DOC0142,Dr. Meena Shukla,Pediatrician,"MBBS, MD (Pediatrics)",9,Apollo Sage Hospital,private,Bawadia Kalan,23.245,77.356,800,4.2,95,True,22,11,15,True,Hindi
+DOC0143,Dr. Narendra Agarwal,Rheumatologist,"MBBS, MD, DM (Rheumatology)",25,Apollo Sage Hospital,private,Bawadia Kalan,23.245,77.356,750,4.8,748,True,13,15,13,False,"Hindi, English"
+DOC0144,Dr. Dinesh Tiwari,Psychiatrist,"MBBS, DPM",10,Apollo Sage Hospital,private,Bawadia Kalan,23.245,77.356,950,3.9,46,True,19,17,13,False,"Hindi, English"
+DOC0145,Dr. Amit Pandey,Urologist,"MBBS, MS, MCh (Urology)",15,Apollo Sage Hospital,private,Bawadia Kalan,23.245,77.356,950,3.8,608,False,18,20,6,True,"Hindi, English, Urdu"
+DOC0146,Dr. Anita Agarwal,Gynecologist,"MBBS, DGO",7,Apollo Sage Hospital,private,Bawadia Kalan,23.245,77.356,950,4.2,675,True,12,16,13,True,"Hindi, English"
+DOC0147,Dr. Usha Mishra,Neurologist,"MBBS, DNB (Neurology)",19,Apollo Sage Hospital,private,Bawadia Kalan,23.245,77.356,1600,4.4,746,True,24,14,6,False,"Hindi, English, Urdu"
+DOC0148,Dr. Vinod Yadav,Ophthalmologist,"MBBS, DO",7,Apollo Sage Hospital,private,Bawadia Kalan,23.245,77.356,900,4.5,649,True,24,20,7,True,"Hindi, English, Urdu"
+DOC0149,Dr. Neha Joshi,Pulmonologist,"MBBS, DTCD",24,Apollo Sage Hospital,private,Bawadia Kalan,23.245,77.356,900,4.5,49,False,16,20,8,True,Hindi
+DOC0150,Dr. Arun Sharma,Surgeon,"MBBS, DNB (Surgery)",18,Apollo Sage Hospital,private,Bawadia Kalan,23.245,77.356,2200,4.0,677,True,23,13,15,True,Hindi

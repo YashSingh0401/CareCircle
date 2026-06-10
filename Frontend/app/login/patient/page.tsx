@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { Fingerprint, Database, Activity, ArrowLeft } from 'lucide-react';
 import { PatientAuthForm } from '@/components/portal/PatientAuthForm';
+import { PatientDevLoginButton } from '@/components/PatientDevLoginButton';
 
 export default function PatientPortalPage() {
   return (
@@ -45,6 +46,7 @@ export default function PatientPortalPage() {
 
         <div className="mt-6">
           <PatientAuthForm />
+          <PatientDevLoginButton />
         </div>
       </div>
     </div>
